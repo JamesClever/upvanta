@@ -1,0 +1,10 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Flask-Migrate
+Werkzeug
+python-dotenv
+openai
+requests
+gunicorn
+psycopg2-binary
