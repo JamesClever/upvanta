@@ -1,0 +1,175 @@
+/* ===============================
+   UPVANTA DESIGN SYSTEM
+================================== */
+
+:root{
+    --primary:#2563EB;
+    --primary-dark:#1D4ED8;
+    --success:#10B981;
+    --dark:#111827;
+    --gray:#6B7280;
+    --light:#F8FAFC;
+    --white:#FFFFFF;
+    --border:#E5E7EB;
+    --radius:12px;
+    --transition:0.3s;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--light);
+    color:var(--dark);
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul{
+    list-style:none;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+/* ===============================
+   NAVIGATION
+================================== */
+
+.navbar{
+    background: var(--white);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+}
+
+.logo a{
+    font-size:1.8rem;
+    font-weight:bold;
+    color:var(--primary);
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:var(--dark);
+    font-weight:500;
+    transition:var(--transition);
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+.nav-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.login-btn{
+    color:var(--dark);
+    font-weight:600;
+}
+
+.primary-btn{
+    background:var(--primary);
+    color:white;
+    padding:12px 24px;
+    border-radius:var(--radius);
+    transition:var(--transition);
+}
+
+.primary-btn:hover{
+    background:var(--primary-dark);
+}
+
+/* ===============================
+   HERO SECTION
+================================== */
+
+.hero{
+    padding:90px 0;
+}
+
+.hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:60px;
+}
+
+.hero-text{
+    flex:1;
+}
+
+.hero-text h1{
+    font-size:3.5rem;
+    margin-bottom:20px;
+    line-height:1.2;
+}
+
+.hero-text p{
+    font-size:1.2rem;
+    color:var(--gray);
+    margin-bottom:35px;
+    max-width:600px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+}
+
+.secondary-btn{
+    border:2px solid var(--primary);
+    color:var(--primary);
+    padding:12px 24px;
+    border-radius:var(--radius);
+    transition:var(--transition);
+}
+
+.secondary-btn:hover{
+    background:var(--primary);
+    color:white;
+}
+
+.hero-image{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.placeholder{
+    width:420px;
+    height:320px;
+    background:white;
+    border:2px dashed var(--border);
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--gray);
+    font-size:1.1rem;
+}
+

@@ -1,13 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %}
-Upvanta
-{% endblock %}
+{% block title %}Upvanta{% endblock %}
 
 {% block content %}
 
-<h1>Welcome to Upvanta</h1>
+<nav class="navbar">
+    <div class="container nav-container">
 
-<p>Discover. Learn. Earn.</p>
+        <div class="logo">
+            <a href="/">UPVANTA</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">Learn</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <a href="#" class="login-btn">Login</a>
+            <a href="#" class="primary-btn">Get Started</a>
+        </div>
+
+    </div>
+</nav>
+
+<section class="hero">
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <h1>Discover. Learn. Earn.</h1>
+
+            <p>
+                AI-powered platform connecting talented people
+                with jobs, scholarships, freelance opportunities,
+                grants and career growth.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#" class="primary-btn">
+                    Get Started
+                </a>
+
+                <a href="#" class="secondary-btn">
+                    Learn More
+                </a>
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <div class="placeholder">
+                Illustration Coming Soon
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}
