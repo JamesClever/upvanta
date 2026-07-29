@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Edit Scholarship
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+
+<h1>
+Edit Scholarship
+</h1>
+
+
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.organization.label }}<br>
+        {{ form.organization(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.country.label }}<br>
+        {{ form.country(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.level.label }}<br>
+        {{ form.level(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.deadline.label }}<br>
+        {{ form.deadline(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.amount.label }}<br>
+        {{ form.amount(size=50) }}
+    </p>
+
+
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(rows=6, cols=50) }}
+    </p>
+
+
+    <p>
+        {{ form.submit() }}
+    </p>
+
+
+</form>
+
+
+</div>
+
+{% endblock %}

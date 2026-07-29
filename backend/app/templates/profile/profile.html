@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+My Profile - Upvanta
+{% endblock %}
+
+
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/profile.css') }}">
+{% endblock %}
+
+
+{% set page_title = "Profile" %}
+
+{% block content %}
+
+
+<section class="profile-page">
+
+
+<div class="container">
+
+
+
+    <div class="profile-header">
+
+        <h1>
+            {{ user.full_name }}
+        </h1>
+
+        <p>
+            Manage your account profile.
+        </p>
+
+    </div>
+
+
+
+
+
+<form 
+    method="POST" 
+    enctype="multipart/form-data"
+    class="profile-form"
+>
+
+
+
+
+<div class="profile-card">
+
+
+
+    <div class="profile-picture-section">
+
+
+        {% if user.profile_picture and user.profile_picture != "default_avatar.webp" %}
+
+
+        <img
+            id="profile-preview"
+            src="{{ url_for('static', filename='uploads/profile_pictures/' ~ user.profile_picture) }}"
+            alt="Profile Picture"
+            class="profile-image-large"
+        >
+
+
+        {% else %}
+
+
+        <img
+            id="profile-preview"
+            src="{{ url_for('static', filename='images/default_avatar.webp') }}"
+            alt="Default Avatar"
+            class="profile-image-large"
+        >
+
+
+        {% endif %}
+
+
+
+        <label>
+            Profile Picture
+        </label>
+
+
+        <input
+            type="file"
+            id="profile_picture"
+            name="profile_picture"
+            accept="image/*"
+        >
+
+
+    </div>
+
+
+
+
+
+    <div class="profile-fields">
+
+
+
+        <label>
+            Bio
+        </label>
+
+        <textarea 
+            name="bio"
+        >{{ user.bio or '' }}</textarea>
+
+
+
+
+
+        <label>
+            Location
+        </label>
+
+        <input
+            type="text"
+            name="location"
+            value="{{ user.location }}"
+            placeholder="Example: Abuja, Nigeria"
+        >
+
+
+
+
+
+        <label>
+            Skills
+        </label>
+
+        <input
+            type="text"
+            name="skills"
+            value="{{ user.skills }}"
+            placeholder="Python, Design, Marketing"
+        >
+
+
+
+
+
+        <label>
+            Education
+        </label>
+
+        <input
+            type="text"
+            name="education"
+            value="{{ user.education }}"
+        >
+
+
+
+
+
+        <label>
+            Experience
+        </label>
+
+        <textarea
+            name="experience"
+        >{{ user.experience }}</textarea>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+<button
+    type="submit"
+    class="profile-save-btn"
+>
+    Save Profile
+</button>
+
+
+</form>
+
+
+
+<div class="helper-section">
+
+
+    <h2>
+        🤝 UPVANTA HELPER
+    </h2>
+
+
+    {% if user.is_helper %}
+    <p>
+        Your helper profile is active. Keep your information updated so people can find and hire you.
+    </p>
+    {% else %}
+    <p>
+        Offer local services and earn money by helping people in your community.
+    </p>
+    {% endif %}
+
+    
+    <a
+        href="{{ url_for('helper.become_helper') }}"
+        class="helper-btn">
+
+        {% if user.is_helper %}
+            Manage Helper Profile
+        {% else %}
+            Become Upvanta Helper
+        {% endif %}
+
+    </a>
+    
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+{% endblock %}

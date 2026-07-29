@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{ scholarship.title }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+
+<div class="feature-card">
+
+<h1>
+{{ scholarship.title }}
+</h1>
+
+
+<p>
+<strong>Organization:</strong>
+{{ scholarship.organization }}
+</p>
+
+
+<p>
+<strong>Country:</strong>
+{{ scholarship.country }}
+</p>
+
+
+<p>
+<strong>Level:</strong>
+{{ scholarship.level }}
+</p>
+
+
+<p>
+<strong>Deadline:</strong>
+{{ scholarship.deadline }}
+</p>
+
+
+<p>
+<strong>Amount:</strong>
+{{ scholarship.amount }}
+</p>
+
+
+<hr>
+
+
+<p>
+{{ scholarship.description }}
+</p>
+
+
+<br>
+
+
+<a href="{{ url_for('scholarships.edit_scholarship', scholarship_id=scholarship.id) }}"
+class="primary-btn">
+
+Edit Scholarship
+
+</a>
+
+
+<br><br>
+
+
+<form method="POST"
+action="{{ url_for('scholarships.delete_scholarship', scholarship_id=scholarship.id) }}">
+
+<button type="submit"
+class="secondary-btn"
+onclick="return confirm('Are you sure you want to delete this scholarship?');">
+
+Delete Scholarship
+
+</button>
+
+</form>
+
+
+<br>
+
+
+<a href="{{ url_for('scholarships.list_scholarships') }}"
+class="primary-btn">
+
+← Back to Scholarships
+
+</a>
+
+
+</div>
+
+
+</div>
+
+{% endblock %}

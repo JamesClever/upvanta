@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Account - Upvanta
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/pages/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-card">
+
+        <h1>Create Your Account</h1>
+
+        <p class="auth-subtitle">
+            Join Upvanta and unlock jobs, scholarships, AI coaching, and career opportunities.
+        </p>
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+
+                {{ form.full_name.label }}
+
+                {{ form.full_name(
+                    placeholder="Enter your full name"
+                ) }}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.email.label }}
+
+                {{ form.email(
+                    placeholder="Enter your email address"
+                ) }}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.password.label }}
+
+                {{ form.password(
+                    placeholder="Create a password"
+                ) }}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.confirm_password.label }}
+
+                {{ form.confirm_password(
+                    placeholder="Confirm your password"
+                ) }}
+
+            </div>
+
+            {{ form.submit(
+                class="primary-btn auth-btn"
+            ) }}
+
+        </form>
+
+        <p class="auth-footer">
+
+            Already have an account?
+
+            <a href="{{ url_for('auth.login') }}">
+                Login here
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}
+Scholarships - Upvanta
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/scholarships.css') }}">
+{% endblock %}
+
+{% set page_title = "Scholarships" %}
+
+{% block content %}
+
+<section class="scholarships-page">
+
+    <div class="container">
+
+        <div class="scholarships-header">
+
+            <h1>🎓 Available Scholarships</h1>
+
+            <p>
+                Explore scholarships from universities and organizations around the world.
+            </p>
+
+        </div>
+
+        <form method="GET" class="scholarships-search">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search scholarships..."
+                value="{{ search }}"
+                class="search-box"
+            >
+
+            <div class="scholarships-actions">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+                    Search
+                </button>
+
+                {% if search %}
+                <a
+                    href="{{ url_for('scholarships.list_scholarships') }}"
+                    class="secondary-btn">
+                    Clear
+                </a>
+                {% endif %}
+
+                <a
+                    href="{{ url_for('scholarships.add_scholarship') }}"
+                    class="primary-btn">
+                    + Add Scholarship
+                </a>
+
+            </div>
+
+        </form>
+
+        {% if scholarships.items %}
+
+        <div class="scholarships-grid">
+
+            {% for scholarship in scholarships.items %}
+
+            <div class="scholarships-card">
+
+                <h3>{{ scholarship.title }}</h3>
+
+                <p>
+                    <strong>Organization:</strong>
+                    {{ scholarship.organization }}
+                </p>
+
+                <p>
+                    <strong>Country:</strong>
+                    {{ scholarship.country }}
+                </p>
+
+                <p>
+                    <strong>Level:</strong>
+                    {{ scholarship.level }}
+                </p>
+
+                <p>
+                    <strong>Deadline:</strong>
+                    {{ scholarship.deadline }}
+                </p>
+
+                <p>
+                    <strong>Amount:</strong>
+                    {{ scholarship.amount }}
+                </p>
+
+                <a
+                    href="{{ url_for('scholarships.scholarship_details', scholarship_id=scholarship.id) }}"
+                    class="primary-btn">
+
+                    View Details
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="scholarships-card scholarships-empty">
+
+            <h2>No Scholarships Available</h2>
+
+            <p>
+                New scholarship opportunities will appear here soon.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        {% if scholarships.pages > 1 %}
+
+        <div class="pagination">
+
+            {% if scholarships.has_prev %}
+
+            <a
+                href="{{ url_for('scholarships.list_scholarships',
+                    page=scholarships.prev_num,
+                    search=search) }}"
+                class="secondary-btn">
+
+                ← Previous
+
+            </a>
+
+            {% endif %}
+
+            <span class="page-number">
+                Page {{ scholarships.page }} of {{ scholarships.pages }}
+            </span>
+
+            {% if scholarships.has_next %}
+
+            <a
+                href="{{ url_for('scholarships.list_scholarships',
+                    page=scholarships.next_num,
+                    search=search) }}"
+                class="primary-btn">
+
+                Next →
+
+            </a>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

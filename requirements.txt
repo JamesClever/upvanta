@@ -8,3 +8,4 @@ openai
 requests
 gunicorn
 psycopg2-binary
+Flask-Bcrypt

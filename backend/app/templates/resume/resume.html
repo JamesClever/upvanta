@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+Resume Builder
+{% endblock %}
+
+{% set page_title = "Resume Builder" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Resume Builder</h1>
+
+    <a href="{{ url_for('resume.add_resume') }}" class="primary-btn">
+        + Create Resume
+    </a>
+
+    <br><br>
+
+    {% if resumes.items %}
+
+        <div class="feature-grid">
+
+        {% for resume in resumes %}
+
+            <div class="feature-card">
+
+                <h3>{{ resume.full_name }}</h3>
+
+                <p>{{ resume.email }}</p>
+
+                <p>{{ resume.location }}</p>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="feature-card">
+
+            <h2>No resumes created yet.</h2>
+
+            <p>Create your first professional resume.</p>
+
+        </div>
+
+    {% endif %}
+
+    {% if resumes.pages > 0 %}
+
+    <div class="pagination">
+
+        {% if resumes.has_prev %}
+
+        <a
+            href="{{ url_for(
+                'resume.list_resumes',
+                page=resumes.prev_num,
+                search=search
+            ) }}"
+            class="secondary-btn">
+            ← Previous
+        </a>
+
+        {% endif %}
+
+        <span class="page-number">
+            Page {{ resumes.page }}
+            of
+            {{ resumes.pages }}
+        </span>
+
+        {% if resumes.has_next %}
+
+        <a
+            href="{{ url_for(
+                'resume.list_resumes',
+                page=resumes.next_num,
+                search=search
+            ) }}"
+            class="primary-btn">
+            Next →
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

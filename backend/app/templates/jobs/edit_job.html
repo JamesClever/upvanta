@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Job{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Edit Job</h1>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>{{ form.title.label }}<br>{{ form.title(size=50) }}</p>
+
+        <p>{{ form.company.label }}<br>{{ form.company(size=50) }}</p>
+
+        <p>{{ form.location.label }}<br>{{ form.location(size=50) }}</p>
+
+        <p>{{ form.job_type.label }}<br>{{ form.job_type(size=50) }}</p>
+
+        <p>{{ form.category.label }}<br>{{ form.category(size=50) }}</p>
+
+        <p>{{ form.salary.label }}<br>{{ form.salary(size=50) }}</p>
+
+        <p>{{ form.description.label }}<br>{{ form.description(rows=6, cols=50) }}</p>
+
+        <p>{{ form.submit(value="Update Job") }}</p>
+
+    </form>
+
+</div>
+
+{% endblock %}

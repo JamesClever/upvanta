@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ mentorship.mentor }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="feature-card">
+
+        <h1>{{ mentorship.mentor }}</h1>
+
+        <p><strong>Expertise:</strong> {{ mentorship.expertise }}</p>
+
+        <p><strong>Organization:</strong> {{ mentorship.organization }}</p>
+
+        <p><strong>Location:</strong> {{ mentorship.location }}</p>
+
+        <p><strong>Availability:</strong> {{ mentorship.availability }}</p>
+
+        <hr><br>
+
+        <p>{{ mentorship.description }}</p>
+
+        <br>
+
+        <a href="{{ url_for('mentorships.edit_mentorship',
+        mentorship_id=mentorship.id) }}"
+        class="primary-btn">
+            Edit Mentorship
+        </a>
+
+        <br><br>
+
+        <form method="POST"
+              action="{{ url_for('mentorships.delete_mentorship',
+              mentorship_id=mentorship.id) }}">
+
+            <button class="secondary-btn"
+                    onclick="return confirm('Delete this mentorship?')">
+
+                Delete Mentorship
+
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="{{ url_for('mentorships.list_mentorships') }}"
+           class="primary-btn">
+
+            ← Back to Mentorships
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,30 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Upvanta{% endblock %}
+{% block title %}
+Upvanta
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/pages/index.css') }}">
+{% endblock %}
 
 {% block content %}
 
-<nav class="navbar">
-    <div class="container nav-container">
-
-        <div class="logo">
-            <a href="/">UPVANTA</a>
-        </div>
-
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
-
-        <div class="nav-buttons">
-            <a href="#" class="login-btn">Login</a>
-            <a href="#" class="primary-btn">Get Started</a>
-        </div>
-
-    </div>
-</nav>
+<!-- ===========================
+     HERO
+============================ -->
 
 <section class="hero">
 
@@ -32,80 +21,72 @@
 
         <div class="hero-text">
 
-            <h1>Discover. Learn. Earn.</h1>
+            <span class="hero-badge">
+                AI-Powered Career Platform
+            </span>
+
+            <h1>
+                Unlock Your Future With AI.
+            </h1>
 
             <p>
-                AI-powered platform connecting talented people
-                with jobs, scholarships, freelance opportunities,
-                grants and career growth.
+
+                Upvanta helps you discover jobs,
+                scholarships, mentorships, courses,
+                trusted local assistance and AI-powered
+                career guidance—all in one platform.
+
             </p>
 
+            {% if not current_user.is_authenticated %}
+
             <div class="hero-buttons">
-                <a href="#" class="primary-btn">
+
+                <a href="{{ url_for('auth.register') }}"
+                   class="primary-btn">
+
                     Get Started
+
                 </a>
 
-                <a href="#" class="secondary-btn">
-                    Learn More
+                <a href="{{ url_for('auth.login') }}"
+                   class="secondary-btn">
+
+                    Login
+
                 </a>
+
             </div>
+
+            {% endif %}
+
+        </div>
 
         <div class="hero-card">
 
-            <div class="hero-icon">🤖</div>
+            <div class="hero-icon">
+                🤖
+            </div>
 
-            <h2>AI Career Coach</h2>
+            <h2>
+                Upvanta AI Coach
+            </h2>
 
             <p>
-                Discover jobs, scholarships,
-                grants and courses tailored for you.
+
+                Ask career questions,
+                discover opportunities,
+                improve your resume,
+                and get personalized advice.
+
             </p>
 
-        </div>
+            <a href="{{ url_for('ai.ai_coach') }}"
+               class="primary-btn">
 
-    </div>
+                Try AI Coach
 
-</section>
-
-<section class="features">
-
-    <div class="container">
-
-        <h2 class="section-title">
-            Everything You Need
-        </h2>
-
-        <div class="feature-grid">
-
-            <div class="feature-card">
-                <h3>💼 Jobs</h3>
-                <p>Find verified local and remote jobs.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>🎓 Scholarships</h3>
-                <p>Study opportunities from around the world.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>🚀 Freelancing</h3>
-                <p>Earn from clients worldwide.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>🤖 AI Coach</h3>
-                <p>Personalized career recommendations.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>📄 Resume Builder</h3>
-                <p>Create ATS-friendly resumes.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>📚 Courses</h3>
-                <p>Upgrade your skills and get certified.</p>
-            </div>
+            </a>
 
         </div>
 
@@ -113,46 +94,27 @@
 
 </section>
 
-<section class="stats">
-
-    <div class="container stats-grid">
-
-        <div>
-            <h2>50K+</h2>
-            <p>Jobs</p>
-        </div>
-
-        <div>
-            <h2>10K+</h2>
-            <p>Scholarships</p>
-        </div>
-
-        <div>
-            <h2>120+</h2>
-            <p>Countries</p>
-        </div>
-
-        <div>
-            <h2>AI</h2>
-            <p>Powered</p>
-        </div>
-
-    </div>
-
-</section>
 
 <footer>
 
     <div class="container">
 
-        <h2>UPVANTA</h2>
+        <h2>
+
+            UPVANTA
+
+        </h2>
 
         <p>
+
             Discover. Learn. Earn.
+
         </p>
 
         <p>
+
             © 2026 Upvanta. All rights reserved.
+
         </p>
 
     </div>

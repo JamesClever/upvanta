@@ -1,0 +1,498 @@
+{% extends "base.html" %}
+
+{% block title %}
+Upvanta Assist
+{% endblock %}
+
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/assist.css') }}">
+{% endblock %}
+
+{% set page_title = "Upvanta Assist" %}
+
+{% block content %}
+
+<section class="dashboard assist-page">
+
+<div class="container">
+
+
+<!-- ==========================
+     Header
+=========================== -->
+
+<div class="assist-header">
+
+    <h1>
+        UPVANTA ASSIST
+    </h1>
+
+    <p>
+        Find trusted helpers near you.
+    </p>
+
+</div>
+
+
+
+<!-- ==========================
+     Available Helpers
+=========================== -->
+
+<div class="assist-grid">
+
+
+{% for helper in helpers %}
+
+<div class="assist-card">
+
+
+<div class="helper-header">
+
+
+<img
+src="{{ url_for('static', filename='uploads/profile_pictures/' ~ helper.user.profile_picture)
+if helper.user.profile_picture != 'default_avatar.webp'
+else url_for('static', filename='images/default_avatar.webp') }}"
+alt="{{ helper.user.full_name }}"
+class="helper-avatar"
+>
+
+
+<div class="helper-info">
+
+<h3>
+{{ helper.user.full_name }}
+</h3>
+
+<p>
+📍 {{ helper.location }}
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="helper-details">
+
+
+<p>
+💼 {{ helper.services }}
+</p>
+
+
+<p>
+⭐
+
+{% if helper.rating %}
+
+{{ helper.rating }}
+
+{% else %}
+
+No ratings yet
+
+{% endif %}
+
+</p>
+
+
+<p>
+✔ {{ helper.jobs_completed or 0 }}
+Tasks Completed
+</p>
+
+
+<p class="helper-status">
+
+<strong>Status:</strong>
+
+🟢 {{ helper.availability }}
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="assist-buttons">
+
+
+<a
+href="{{ url_for('assist.helper_profile', helper_id=helper.id) }}"
+class="helper-btn"
+>
+View Profile
+</a>
+
+
+
+<a
+href="{{ url_for('helper.request_help', helper_id=helper.id) }}"
+class="helper-btn"
+>
+Request Help
+</a>
+
+
+</div>
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="feature-card">
+
+<h3>
+No Helpers Available
+</h3>
+
+<p>
+Nobody has registered as a helper yet.
+</p>
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+<!-- ==========================
+     My Requests
+=========================== -->
+
+
+{% if my_requests %}
+
+
+<div class="my-requests-section">
+
+
+<div class="assist-header">
+
+<h2>
+My Requests
+</h2>
+
+
+<p>
+Track requests you have sent to helpers.
+</p>
+
+
+</div>
+
+
+
+<div class="assist-grid">
+
+
+
+{% for request in my_requests %}
+
+
+<div class="assist-card">
+
+
+
+<div class="helper-details">
+
+
+<p>
+
+<strong>Task</strong><br>
+
+{{ request.title }}
+
+</p>
+
+
+
+<p>
+
+<strong>Helper</strong><br>
+
+{{ request.helper.user.full_name }}
+
+</p>
+
+
+
+<p>
+
+<strong>Location</strong><br>
+
+{{ request.location }}
+
+</p>
+
+
+
+<p>
+
+<strong>Budget</strong><br>
+
+₦{{ "%.2f"|format(request.budget or 0) }}
+
+</p>
+
+
+
+<p>
+
+<strong>Status:</strong>
+
+
+{% if request.status == "pending" %}
+
+<span class="status-pending">
+🟡 Pending
+</span>
+
+
+{% elif request.status == "accepted" %}
+
+<span class="status-accepted">
+🟢 Accepted
+</span>
+
+
+{% elif request.status == "completed" %}
+
+<span class="status-completed">
+✅ Completed
+</span>
+
+
+{% elif request.status == "declined" %}
+
+<span class="status-cancelled">
+🔴 Declined
+</span>
+
+
+{% elif request.status == "cancelled" %}
+
+<span class="status-cancelled">
+⚫ Cancelled
+</span>
+
+
+{% endif %}
+
+
+</p>
+
+
+
+
+<p>
+
+<strong>Requested On</strong><br>
+
+{{ request.created_at.strftime("%d %b %Y") }}
+
+</p>
+
+
+
+</div>
+
+
+
+
+<div class="assist-buttons">
+
+
+<a
+href="{{ url_for('helper.request_details', request_id=request.id) }}"
+class="helper-btn"
+>
+View Details
+</a>
+
+
+
+{% if request.status == "pending" %}
+
+
+<a
+href="{{ url_for('helper.cancel_request', request_id=request.id) }}"
+class="helper-btn danger-btn"
+>
+Cancel
+</a>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+<!-- ==========================
+     Incoming Requests
+     For Helpers
+=========================== -->
+
+
+{% if incoming_requests %}
+
+
+<div class="my-requests-section">
+
+
+<div class="assist-header">
+
+<h2>
+Incoming Requests
+</h2>
+
+
+<p>
+Requests from users needing your help.
+</p>
+
+
+</div>
+
+
+
+<div class="assist-grid">
+
+
+
+{% for request in incoming_requests %}
+
+
+<div class="assist-card">
+
+
+<div class="request-details">
+
+    <div class="detail-row">
+        <strong>Task</strong>
+        <span>{{ request.title }}</span>
+    </div>
+
+
+    <div class="detail-row">
+        <strong>Requester</strong>
+        <span>{{ request.requester.full_name }}</span>
+    </div>
+
+
+    <div class="detail-row">
+        <strong>Status</strong>
+        <span>{{ request.status }}</span>
+    </div>
+
+</div>
+
+
+
+<div class="assist-buttons">
+
+
+
+{% if request.status == "pending" %}
+
+
+<a
+href="{{ url_for('helper.accept_request', request_id=request.id) }}"
+class="helper-btn"
+>
+Accept
+</a>
+
+
+<a
+href="{{ url_for('helper.decline_request', request_id=request.id) }}"
+class="helper-btn danger-btn"
+>
+Decline
+</a>
+
+
+
+{% elif request.status == "accepted" %}
+
+
+<a
+href="{{ url_for('helper.complete_request', request_id=request.id) }}"
+class="helper-btn"
+>
+Complete
+</a>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</section>
+
+
+{% endblock %}

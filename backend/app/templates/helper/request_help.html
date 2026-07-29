@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% set page_title = "Request Help" %}
+
+{% block title %}
+Request Help - Upvanta
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/request_help.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="request-page">
+
+    <div class="container">
+
+        <div class="request-header">
+
+            <h1>
+                Request Help
+            </h1>
+
+            <p>
+                Send a service request to {{ helper.user.full_name }}.
+            </p>
+
+        </div>
+
+        <form
+            method="POST"
+            class="request-form"
+        >
+
+            <!-- ==========================
+                 Task Details
+            =========================== -->
+
+            <div class="request-card">
+
+                <h2>
+                    Task Details
+                </h2>
+
+                <p>
+                    Describe the task you would like the helper to complete.
+                </p>
+
+                <label for="title">
+                    Task Title
+                </label>
+
+                <input
+                    id="title"
+                    type="text"
+                    name="title"
+                    placeholder="Example: Grocery Shopping"
+                    required
+                >
+
+                <label for="description">
+                    Task Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="6"
+                    placeholder="Provide all the details the helper needs..."
+                    required
+                ></textarea>
+
+                <label for="location">
+                    Your Location
+                </label>
+
+                <input
+                    id="location"
+                    type="text"
+                    name="location"
+                    value="{{ current_user.location }}"
+                    placeholder="Example: Wuse, Abuja"
+                    required
+                >
+
+            </div>
+
+            <!-- ==========================
+                 Schedule
+            =========================== -->
+
+            <div class="request-card">
+
+                <h2>
+                    Schedule
+                </h2>
+
+                <p>
+                    Choose your preferred date, time, and budget.
+                </p>
+
+                <label for="preferred_date">
+                    Preferred Date
+                </label>
+
+                <input
+                    id="preferred_date"
+                    type="date"
+                    name="preferred_date"
+                >
+
+                <label for="preferred_time">
+                    Preferred Time
+                </label>
+
+                <input
+                    id="preferred_time"
+                    type="time"
+                    name="preferred_time"
+                >
+
+                <label for="budget">
+                    Budget (₦)
+                </label>
+
+                <input
+                    id="budget"
+                    type="number"
+                    name="budget"
+                    min="0"
+                    step="0.01"
+                    placeholder="5000"
+                >
+
+            </div>
+
+            <!-- ==========================
+                 Helper Information
+            =========================== -->
+
+            <div class="request-card">
+
+                <h2>
+                    Selected Helper
+                </h2>
+
+                <p>
+                    Review the helper before sending your request.
+                </p>
+
+                <div class="request-helper">
+
+                    {% if helper.user.profile_picture != "default_avatar.webp" %}
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/profile_pictures/' ~ helper.user.profile_picture) }}"
+                        alt="{{ helper.user.full_name }}"
+                        class="request-helper-image"
+                    >
+
+                    {% else %}
+
+                    <img
+                        src="{{ url_for('static', filename='images/default_avatar.webp') }}"
+                        alt="{{ helper.user.full_name }}"
+                        class="request-helper-image"
+                    >
+
+                    {% endif %}
+
+                    <div class="request-helper-info">
+
+                        <h3>
+                            {{ helper.user.full_name }}
+                        </h3>
+
+                        <p>
+                            📍 {{ helper.location }}
+                        </p>
+
+                        <p>
+                            💼 {{ helper.services }}
+                        </p>
+
+                        <p>
+                            ⭐ {{ helper.rating }}
+                        </p>
+
+                        <p>
+                            🟢 {{ helper.availability }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="request-submit-btn"
+            >
+                Send Request
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

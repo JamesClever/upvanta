@@ -1,0 +1,231 @@
+/* =====================================
+   JOBS PAGE
+===================================== */
+
+.jobs-page{
+    padding:60px 0;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.jobs-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.jobs-header h1{
+    font-size:2.6rem;
+    margin-bottom:12px;
+    color:var(--dark);
+}
+
+.jobs-header p{
+    font-size:1.1rem;
+    color:var(--gray);
+    max-width:700px;
+    margin:auto;
+    line-height:1.7;
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.jobs-search{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:45px;
+}
+
+.jobs-search .search-box{
+    width:420px;
+    max-width:100%;
+}
+
+/* =====================================
+   JOB GRID
+===================================== */
+
+.jobs-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+
+/* =====================================
+   JOB CARD
+===================================== */
+
+.jobs-card{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    min-height:390px;
+    transition:all .3s ease;
+}
+
+.jobs-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+/* =====================================
+   CARD HEADER
+===================================== */
+
+.jobs-card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.jobs-card-header h3{
+    font-size:1.35rem;
+    color:var(--primary);
+    line-height:1.4;
+}
+
+/* =====================================
+   JOB TYPE BADGE
+===================================== */
+
+.job-badge{
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:7px 14px;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+/* =====================================
+   JOB META
+===================================== */
+
+.jobs-meta{
+    margin-bottom:20px;
+}
+
+.jobs-meta p{
+    margin-bottom:12px;
+    color:#4b5563;
+    line-height:1.6;
+}
+
+.jobs-meta strong{
+    color:var(--dark);
+}
+
+/* =====================================
+   DESCRIPTION
+===================================== */
+
+.jobs-description{
+    flex:1;
+}
+
+.jobs-description p{
+    color:#6b7280;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.jobs-card .primary-btn{
+    width:100%;
+    margin-top:auto;
+    text-align:center;
+}
+
+/* =====================================
+   EMPTY STATE
+===================================== */
+
+.jobs-empty{
+    background:#fff;
+    border-radius:18px;
+    padding:60px 40px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.jobs-empty h2{
+    margin-bottom:15px;
+}
+
+.jobs-empty p{
+    color:var(--gray);
+    line-height:1.7;
+}
+
+/* =====================================
+   PAGINATION
+===================================== */
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:50px;
+    flex-wrap:wrap;
+}
+
+.page-number{
+    font-weight:600;
+    color:var(--gray);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:1000px){
+
+    .jobs-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .jobs-grid{
+        grid-template-columns:1fr;
+    }
+
+    .jobs-header h1{
+        font-size:2rem;
+    }
+
+    .jobs-card-header{
+        flex-direction:column;
+    }
+
+    .job-badge{
+        align-self:flex-start;
+    }
+
+    .jobs-search{
+        flex-direction:column;
+    }
+
+    .jobs-search .search-box{
+        width:100%;
+    }
+
+}

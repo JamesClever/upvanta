@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ helper.user.full_name }} - Upvanta Assist
+{% endblock %}
+
+{% set page_title = "Helper Profile" %}
+
+{% block content %}
+
+<section class="profile-page">
+
+    <div class="container">
+
+        <div class="helper-profile">
+
+            {% set user = helper.user %}
+            {% set avatar_class = "helper-profile-image" %}
+
+            {% include "components/avatar.html" %}
+
+            <h1>{{ helper.user.full_name }}</h1>
+
+            <p class="helper-location">
+                📍 {{ helper.location }}
+            </p>
+
+            <p class="helper-rating">
+                ⭐ {{ helper.user.rating }}
+            </p>
+
+            <p class="helper-tasks">
+                ✔ {{ helper.user.completed_tasks }} Tasks Completed
+            </p>
+
+            <hr>
+
+            <h3>About</h3>
+
+            <p>
+                {{ helper.user.bio or "No bio has been added yet." }}
+            </p>
+
+            <h3>Services</h3>
+
+            <p>
+                {{ helper.services }}
+            </p>
+
+            <h3>Availability</h3>
+
+            <p>
+                {{ helper.availability }}
+            </p>
+
+            <button class="primary-btn">
+                Request Help
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

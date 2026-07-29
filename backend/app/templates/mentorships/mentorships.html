@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}
+Mentorships - Upvanta
+{% endblock %}
+
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/mentorships.css') }}">
+{% endblock %}
+
+{% set page_title = "Mentorships" %}
+
+{% block content %}
+
+<section class="mentorships-page">
+
+    <div class="container">
+
+
+        <div class="mentorships-header">
+
+            <h1>🤝 Available Mentorships</h1>
+
+            <p>
+                Connect with mentors and discover guidance opportunities to grow your career.
+            </p>
+
+        </div>
+
+
+
+        <form method="GET" class="mentorships-search">
+
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search mentorships..."
+                value="{{ search }}"
+                class="search-box"
+            >
+
+
+            <div class="mentorships-actions">
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Search
+
+                </button>
+
+
+
+                {% if search %}
+
+                <a
+                    href="{{ url_for('mentorships.list_mentorships') }}"
+                    class="secondary-btn">
+
+                    Clear
+
+                </a>
+
+                {% endif %}
+
+
+
+                <a
+                    href="{{ url_for('mentorships.add_mentorship') }}"
+                    class="primary-btn">
+
+                    + Add Mentorship
+
+                </a>
+
+
+            </div>
+
+
+        </form>
+
+
+
+
+        {% if mentorships.items %}
+
+
+
+        <div class="mentorships-grid">
+
+
+
+            {% for mentorship in mentorships.items %}
+
+
+
+            <div class="mentorships-card">
+
+
+                <h3>
+                    {{ mentorship.mentor }}
+                </h3>
+
+
+
+                <p>
+                    <strong>Expertise:</strong>
+                    {{ mentorship.expertise }}
+                </p>
+
+
+
+                <p>
+                    <strong>Organization:</strong>
+                    {{ mentorship.organization }}
+                </p>
+
+
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ mentorship.location }}
+                </p>
+
+
+
+                <a
+                    href="{{ url_for(
+                        'mentorships.mentorship_details',
+                        mentorship_id=mentorship.id
+                    ) }}"
+                    class="primary-btn">
+
+                    View Details
+
+                </a>
+
+
+
+            </div>
+
+
+
+            {% endfor %}
+
+
+
+        </div>
+
+
+
+        {% else %}
+
+
+
+        <div class="mentorships-card mentorships-empty">
+
+
+            <h2>
+                No Mentorships Available
+            </h2>
+
+
+            <p>
+                New mentorship opportunities will appear here soon.
+            </p>
+
+
+        </div>
+
+
+
+        {% endif %}
+
+
+
+
+
+        {% if mentorships.pages > 1 %}
+
+
+
+        <div class="pagination">
+
+
+
+            {% if mentorships.has_prev %}
+
+
+
+            <a
+                href="{{ url_for(
+                    'mentorships.list_mentorships',
+                    page=mentorships.prev_num,
+                    search=search
+                ) }}"
+                class="secondary-btn">
+
+
+                ← Previous
+
+
+            </a>
+
+
+
+            {% endif %}
+
+
+
+
+
+            <span class="page-number">
+
+                Page {{ mentorships.page }} of {{ mentorships.pages }}
+
+            </span>
+
+
+
+
+
+            {% if mentorships.has_next %}
+
+
+
+            <a
+                href="{{ url_for(
+                    'mentorships.list_mentorships',
+                    page=mentorships.next_num,
+                    search=search
+                ) }}"
+                class="primary-btn">
+
+
+                Next →
+
+
+            </a>
+
+
+
+            {% endif %}
+
+
+
+        </div>
+
+
+
+        {% endif %}
+
+
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}

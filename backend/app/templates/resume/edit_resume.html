@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Resume Builder
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Create Resume</h1>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>{{ form.full_name.label }}<br>{{ form.full_name() }}</p>
+
+        <p>{{ form.email.label }}<br>{{ form.email() }}</p>
+
+        <p>{{ form.phone.label }}<br>{{ form.phone() }}</p>
+
+        <p>{{ form.location.label }}<br>{{ form.location() }}</p>
+
+        <p>{{ form.education.label }}<br>{{ form.education(rows=5) }}</p>
+
+        <p>{{ form.experience.label }}<br>{{ form.experience(rows=6) }}</p>
+
+        <p>{{ form.skills.label }}<br>{{ form.skills(rows=4) }}</p>
+
+        <p>{{ form.summary.label }}<br>{{ form.summary(rows=5) }}</p>
+
+        <p>{{ form.submit() }}</p>
+
+    </form>
+
+</div>
+
+{% endblock %}

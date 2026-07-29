@@ -1,25 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Upvanta{% endblock %}</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>
+        {% block title %}Upvanta{% endblock %}
+    </title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+
+    <script
+        defer
+        src="{{ url_for('static', filename='js/main.js') }}">
+    </script>
+
+
 </head>
+
 
 <body>
 
-{% block content %}
-{% endblock %}
+
+<nav class="navbar">
+
+    <div class="container nav-container">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="nav-buttons">
+
+
+            {% if current_user.is_authenticated %}
+
+
+                <div class="user-info">
+
+
+                    {% set user = current_user %}
+                    {% set avatar_class = "profile-image" %}
+
+                    {% include "components/avatar.html" %}
+
+
+                    <span>
+                        {{ current_user.full_name }}
+                    </span>
+
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('auth.logout') }}"
+                    class="login-btn">
+
+                    Logout
+
+                </a>
+
+
+            {% else %}
+
+
+                <a
+                    href="{{ url_for('auth.login') }}"
+                    class="login-btn">
+
+                    Login
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('auth.register') }}"
+                    class="primary-btn">
+
+                    Get Started
+
+                </a>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="menu-toggle"
+            id="menu-toggle">
+
+            ☰
+
+        </button>
+
+
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="nav-right">
+
+
+            <ul
+                class="nav-links"
+                id="nav-links">
+
+
+                <li>
+
+                    <a href="{{ url_for('main.home') }}">
+                        Home
+                    </a>
+
+                </li>
+
+
+
+                {% if current_user.is_authenticated %}
+
+
+                <li>
+
+                    <a href="{{ url_for('dashboard.index') }}">
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                {% endif %}
+
+
+
+
+                <li class="dropdown">
+
+
+                    <a href="#">
+                        Resources ▾
+                    </a>
+
+
+
+                    <ul class="dropdown-menu">
+
+
+                        <li>
+                            <a href="{{ url_for('jobs.list_jobs') }}">
+                                Jobs
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ url_for('scholarships.list_scholarships') }}">
+                                Scholarships
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ url_for('courses.list_courses') }}">
+                                Courses
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ url_for('mentorships.list_mentorships') }}">
+                                Mentorships
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ url_for('resume.list_resumes') }}">
+                                Resume Builder
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ url_for('assist.index') }}">
+                                🤝 Upvanta Assist
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+
+                </li>
+
+
+
+
+                <li>
+
+                    <a href="{{ url_for('ai.ai_coach') }}">
+                        AI Coach
+                    </a>
+
+
+                </li>
+
+
+            </ul>
+
+
+
+
+            <div class="logo">
+
+                <a href="{{ url_for('main.home') }}">
+                    UPVANTA
+                </a>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</nav>
+
+
+
+
+<!-- TOOLBAR ONLY FOR LOGGED-IN APP PAGES -->
+
+{% if current_user.is_authenticated and request.endpoint not in [
+    'main.home',
+    'auth.login',
+    'auth.register'
+] %}
+
+    {% include "components/toolbar.html" %}
+
+{% endif %}
+
+
+<main>
+
+
+    {% block content %}
+    {% endblock %}
+
+
+</main>
+
 
 </body>
+
 </html>

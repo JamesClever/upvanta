@@ -1,0 +1,367 @@
+/* ===============================
+   UPVANTA ASSIST
+================================== */
+
+/* Page Header */
+
+.assist-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.assist-header h1{
+    font-size:2.8rem;
+    margin-bottom:10px;
+}
+
+.assist-header p{
+    font-size:1.1rem;
+    color:var(--gray);
+    font-weight:500;
+}
+
+
+/* ===============================
+   Helper Grid
+================================== */
+
+.assist-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(330px, 1fr));
+    gap:28px;
+}
+
+
+/* ===============================
+   Helper Card
+================================== */
+
+.assist-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+
+    border:1px solid var(--border);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.25s ease;
+}
+
+.assist-card:hover{
+    transform:translateY(-6px);
+}
+
+
+/* ===============================
+   Card Header
+================================== */
+
+.helper-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    margin-bottom:20px;
+}
+
+
+/* Avatar */
+
+.helper-avatar{
+    width:80px;
+    height:80px;
+
+    min-width:80px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:3px solid var(--primary);
+
+    display:block;
+}
+
+
+/* Name + Location */
+
+.helper-info{
+    flex:1;
+}
+
+.helper-info h3{
+    margin:0 0 8px;
+
+    font-size:1.3rem;
+    font-weight:700;
+
+    color:var(--dark);
+}
+
+.helper-info p{
+    margin:0;
+
+    color:var(--gray);
+
+    font-size:.95rem;
+}
+
+
+/* ===============================
+   Details
+================================== */
+
+.helper-details{
+    margin-top:10px;
+}
+
+.helper-details p{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 0;
+
+    margin:0;
+
+    border-top:1px solid var(--border);
+
+    font-size:.95rem;
+    color:var(--dark);
+}
+
+.helper-details p:last-child{
+    border-bottom:1px solid var(--border);
+}
+
+.helper-status{
+    font-weight:700;
+}
+
+
+/* ===============================
+   Buttons
+================================== */
+
+.assist-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:22px;
+}
+
+.helper-btn{
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:46px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:.95rem;
+    font-weight:600;
+
+    background:var(--primary);
+    color:#fff;
+
+    transition:.25s;
+}
+
+.helper-btn:hover{
+    background:var(--primary-dark);
+}
+
+
+/* ===============================
+   Empty State
+================================== */
+
+.feature-card{
+    grid-column:1/-1;
+
+    text-align:center;
+
+    background:#fff;
+
+    padding:50px 30px;
+
+    border-radius:18px;
+
+    border:1px solid var(--border);
+}
+
+
+/* ===============================
+   MY HELP REQUESTS
+================================== */
+
+.my-requests-section{
+    margin-top:70px;
+}
+
+.my-requests-section h2{
+    font-size:2rem;
+    color:var(--dark);
+    margin-bottom:25px;
+}
+
+.request-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+    gap:24px;
+}
+
+.request-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.25s ease;
+}
+
+.request-card:hover{
+    transform:translateY(-5px);
+}
+
+.request-card h3{
+    margin-bottom:18px;
+    color:var(--primary);
+    font-size:1.2rem;
+}
+
+.request-card p{
+    margin:0;
+    padding:12px 0;
+
+    border-top:1px solid var(--border);
+
+    color:var(--dark);
+    font-size:.95rem;
+}
+
+.request-card p:last-child{
+    border-bottom:1px solid var(--border);
+}
+
+.request-card strong{
+    color:var(--dark);
+}
+
+.status-pending{
+    color:#f59e0b;
+    font-weight:700;
+}
+
+.status-accepted{
+    color:#10b981;
+    font-weight:700;
+}
+
+.status-completed{
+    color:#2563eb;
+    font-weight:700;
+}
+
+.status-cancelled{
+    color:#ef4444;
+    font-weight:700;
+}
+
+/* ===============================
+   Responsive
+================================== */
+
+@media (max-width:1000px){
+
+    .assist-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width:768px){
+
+    .assist-grid{
+        grid-template-columns:1fr;
+    }
+
+    .helper-header{
+        align-items:center;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .assist-card{
+        padding:18px;
+    }
+
+    .helper-header{
+        gap:14px;
+    }
+
+    .helper-avatar{
+        width:70px;
+        height:70px;
+        min-width:70px;
+    }
+
+    .assist-buttons{
+        flex-direction:column;
+    }
+
+    .helper-btn{
+        width:100%;
+    }
+
+}
+
+.request-details {
+    width:100%;
+}
+
+
+.detail-row {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:30px;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+
+.detail-row strong {
+
+    width:120px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+
+.detail-row span {
+
+    flex:1;
+
+    color:#334155;
+
+}

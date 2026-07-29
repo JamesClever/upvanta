@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Course
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Add New Course</h1>
+
+
+    <div class="feature-card">
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+
+            <p>
+                {{ form.title.label }}<br>
+                {{ form.title(size=50) }}
+            </p>
+
+
+            <p>
+                {{ form.platform.label }}<br>
+                {{ form.platform(size=50) }}
+            </p>
+
+
+            <p>
+                {{ form.category.label }}<br>
+                {{ form.category(size=50) }}
+            </p>
+
+
+            <p>
+                {{ form.level.label }}<br>
+                {{ form.level(size=50) }}
+            </p>
+
+
+            <p>
+                {{ form.duration.label }}<br>
+                {{ form.duration(size=50) }}
+            </p>
+
+
+            <p>
+                {{ form.description.label }}<br>
+                {{ form.description(rows=6, cols=50) }}
+            </p>
+
+
+            <p>
+                {{ form.submit() }}
+            </p>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

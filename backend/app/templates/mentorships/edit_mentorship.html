@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Mentorship
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Edit Mentorship</h1>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>{{ form.mentor.label }}<br>{{ form.mentor() }}</p>
+
+        <p>{{ form.expertise.label }}<br>{{ form.expertise() }}</p>
+
+        <p>{{ form.organization.label }}<br>{{ form.organization() }}</p>
+
+        <p>{{ form.location.label }}<br>{{ form.location() }}</p>
+
+        <p>{{ form.availability.label }}<br>{{ form.availability() }}</p>
+
+        <p>{{ form.description.label }}<br>{{ form.description(rows=6) }}</p>
+
+        <p>{{ form.submit() }}</p>
+
+    </form>
+
+</div>
+
+{% endblock %}

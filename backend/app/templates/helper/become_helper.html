@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% set page_title = "Become Upvanta" %}
+
+{% block title %}
+{% if user.is_helper %}
+Manage Helper Profile - Upvanta
+{% else %}
+Become an Upvanta Helper - Upvanta
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/helper.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="helper-page">
+
+    <div class="container">
+
+        <div class="helper-header">
+
+            {% if user.is_helper %}
+                <h1>🛠 Manage Your Helper Profile</h1>
+                <p>Keep your helper profile up to date so people can easily find and hire you.</p>
+            {% else %}
+                <h1>🤝 Become Upvanta Helper</h1>
+                <p>Turn your skills into income by helping people with everyday tasks in your community.</p>
+            {% endif %}
+
+        </div>
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="helper-form"
+        >
+
+            <div class="helper-card">
+
+                <h2>Helper Information</h2>
+
+                <p>
+                    Tell us about the services you can provide.
+                </p>
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Example: Abuja, Nigeria"
+                    value="{{ user.helper_profile.location if user.helper_profile else '' }}"
+                    required
+                >
+
+                <label>Services You Offer</label>
+
+                <textarea
+                    name="services"
+                    rows="5"
+                    placeholder="Example: Delivery, Shopping Assistance, Cleaning, Property Inspection..."
+                    required
+                >{{ user.helper_profile.services if user.helper_profile else '' }}</textarea>
+
+                <label>Availability</label>
+
+                <select name="availability">
+
+                    <option value="Available"
+                        {% if user.helper_profile and user.helper_profile.availability == "Available" %}
+                        selected
+                        {% endif %}>
+                        Available
+                    </option>
+
+                    <option value="Busy"
+                        {% if user.helper_profile and user.helper_profile.availability == "Busy" %}
+                        selected
+                        {% endif %}>
+                        Busy
+                    </option>
+
+                    <option value="Offline"
+                        {% if user.helper_profile and user.helper_profile.availability == "Offline" %}
+                        selected
+                        {% endif %}>
+                        Offline
+                    </option>
+
+                </select>
+
+                <label>Hourly Rate ($)</label>
+
+                <input
+                    type="number"
+                    name="hourly_rate"
+                    min="0"
+                    step="0.01"
+                    placeholder="Example: 15"
+                    value="{{ user.helper_profile.hourly_rate if user.helper_profile else '' }}"
+                >
+
+                <label>About Yourself</label>
+
+                <textarea
+                    name="about"
+                    rows="6"
+                    placeholder="Tell people about your experience, reliability, and the services you provide."
+                >{{ user.helper_profile.about if user.helper_profile else '' }}</textarea>
+
+            </div>
+
+            <div class="helper-card helper-benefits">
+
+                <h2>Why Become a Helper?</h2>
+
+                <div class="benefit-grid">
+
+                    <div class="benefit-item">
+                        <h3>💰 Earn Money</h3>
+                        <p>Offer your skills and earn income from people who need your help.</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <h3>🌍 Build Connections</h3>
+                        <p>Meet new people and grow your professional network in your community.</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <h3>🚀 Grow Your Reputation</h3>
+                        <p>Receive ratings, complete more jobs, and build trust on Upvanta.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="helper-submit-btn"
+            >
+
+                {% if user.is_helper %}
+                    Update Helper Profile
+                {% else %}
+                    Become a Helper
+                {% endif %}
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
