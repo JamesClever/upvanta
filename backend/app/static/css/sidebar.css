@@ -1,0 +1,188 @@
+/* ==========================================
+   UPVANTA SIDEBAR
+========================================== */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:280px;
+    height:100vh;
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    padding:12px 18px;
+    z-index:1000;
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.sidebar-top{
+    margin-bottom:2px;
+}
+
+.sidebar-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#111827;
+}
+
+.logo-icon{
+    color:#2563eb;
+    font-size:2rem;
+}
+
+/* ==========================================
+   MENU
+========================================== */
+
+.sidebar-nav{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+}
+
+.sidebar-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 14px;
+    border-radius:12px;
+    color:#4b5563;
+    font-size:15px;
+    font-weight:500;
+    transition:.25s;
+}
+
+.sidebar-link:hover{
+    background:#f3f4f6;
+    color:#2563eb;
+}
+
+.sidebar-link.active{
+    background:#eff6ff;
+    color:#2563eb;
+    font-weight:600;
+}
+
+.sidebar-icon{
+    width:22px;
+    text-align:center;
+    font-size:1rem;
+}
+
+/* ==========================================
+   USER
+========================================== */
+
+.sidebar-bottom{
+    border-top:1px solid #e5e7eb;
+
+    margin-top:8px;
+    padding-top:10px;
+    padding-left:70px;
+}
+
+.sidebar-user-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.sidebar-user-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    margin-left:-20px;
+}
+
+.sidebar-avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #2563eb;
+    flex-shrink:0;
+}
+
+.sidebar-user-info strong{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    line-height:1.2;
+
+}
+
+.sidebar-user-info small{
+
+    margin-top:3px;
+
+    font-size:13px;
+
+    color:#6b7280;
+
+    line-height:1.2;
+
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+.sidebar-logout{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:fit-content;
+
+    margin:0 auto;
+
+    padding:8px 14px;
+
+    border-radius:12px;
+
+    transition:.25s;
+
+    color:#ef4444;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    border-radius:12px;
+
+    transition:.25s;
+
+    margin-left:-20px;
+
+}
+
+.sidebar-logout:hover{
+
+    background:#fef2f2;
+
+    color:#dc2626;
+
+}

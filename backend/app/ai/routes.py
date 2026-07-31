@@ -8,6 +8,7 @@ from app.extensions import db
 from app.models.chat import ChatMessage
 from app.models.conversation import Conversation
 
+
 from .ai_memory import (
     extract_memories,
     get_user_memories
@@ -191,3 +192,5 @@ def ai_chat():
             conversation_id=conversation.id
         )
     )
+
+

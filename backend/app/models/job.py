@@ -46,6 +46,13 @@ class Job(db.Model):
         default=datetime.utcnow
     )
 
+    applications = db.relationship(
+        "JobApplication",
+        backref="job",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
 
     def __repr__(self):
 

@@ -1,5 +1,6 @@
-from app.extensions import db
 from datetime import datetime
+
+from app.extensions import db
 
 
 class Resume(db.Model):
@@ -9,6 +10,12 @@ class Resume(db.Model):
     id = db.Column(
         db.Integer,
         primary_key=True
+    )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
+        nullable=False
     )
 
     full_name = db.Column(
@@ -48,6 +55,12 @@ class Resume(db.Model):
     created_at = db.Column(
         db.DateTime,
         default=datetime.utcnow
+    )
+
+    updated_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
     )
 
     def __repr__(self):

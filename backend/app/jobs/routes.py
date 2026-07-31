@@ -1,8 +1,15 @@
 from flask import Blueprint, render_template, abort
-from app.models.job import Job
 from flask import request, redirect, url_for, flash
+
+from flask_login import login_required, current_user
+
+from app.models.job import Job
+from app.models.job_application import JobApplication
+
 from app.forms.job_form import JobForm
 from app.extensions import db
+
+from app.services.job_application_service import apply_for_job
 
 jobs = Blueprint("jobs", __name__)
 
@@ -47,6 +54,40 @@ def job_details(job_id):
         "jobs/job_details.html",
         job=job
     )
+
+
+@jobs.route("/jobs/<int:job_id>/apply", methods=["POST"])
+@login_required
+def apply_job(job_id):
+
+    job = Job.query.get_or_404(job_id)
+
+    application, created = apply_for_job(
+        current_user,
+        job
+    )
+
+    if created:
+
+        flash(
+            "Application submitted successfully!",
+            "success"
+        )
+
+    else:
+
+        flash(
+            "You've already applied for this job.",
+            "info"
+        )
+
+    return redirect(
+        url_for(
+            "jobs.job_details",
+            job_id=job.id
+        )
+    )
+
 
 @jobs.route("/jobs/add", methods=["GET", "POST"])
 def add_job():

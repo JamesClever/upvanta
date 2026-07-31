@@ -8,6 +8,7 @@ from .saved_job import saved_jobs
 from .chat import ChatMessage
 from .conversation import Conversation
 from .ai_memory import UserMemory
+from .job_application import JobApplication
 
 from .helper import (
     Helper,

@@ -2,6 +2,14 @@
    UPVANTA GLOBAL DESIGN SYSTEM
 ========================================== */
 
+@import url("layout.css");
+@import url("sidebar.css");
+@import url("header.css");
+@import url("buttons.css");
+@import url("cards.css");
+@import url("forms.css");
+@import url("tables.css");
+
 :root{
     --primary:#2563EB;
     --primary-dark:#1D4ED8;
@@ -53,7 +61,7 @@ img{
 
 .container{
     width:90%;
-    max-width:1200px;
+    max-width:1280px;
     margin:auto;
 }
 
@@ -76,7 +84,7 @@ img{
     padding:18px 0;
 }
 
-.logo a{
+.logo{
     font-size:1.8rem;
     font-weight:800;
     color:var(--primary);

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Resume Review
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>🤖 AI Resume Review</h1>
+
+    <br>
+
+    <div class="feature-card">
+
+        <h2>
+            Overall Score:
+            {{ review.overall_score }}/100
+        </h2>
+
+        <p>
+            ATS Score:
+            <strong>{{ review.ats_score }}/100</strong>
+        </p>
+
+        <p>
+            Grammar Score:
+            <strong>{{ review.grammar_score }}/100</strong>
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="feature-card">
+
+        <h2>✅ Strengths</h2>
+
+        <ul>
+
+            {% for item in review.strengths %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <br>
+
+    <div class="feature-card">
+
+        <h2>⚠️ Weaknesses</h2>
+
+        <ul>
+
+            {% for item in review.weaknesses %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <br>
+
+    <div class="feature-card">
+
+        <h2>💡 Recommendations</h2>
+
+        <ul>
+
+            {% for item in review.recommendations %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

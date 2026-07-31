@@ -12,9 +12,33 @@ Resume Builder
 
     <h1>Resume Builder</h1>
 
-    <a href="{{ url_for('resume.add_resume') }}" class="primary-btn">
-        + Create Resume
-    </a>
+    <div class="resume-actions">
+
+        <a
+            href="{{ url_for('resume.add_resume') }}"
+            class="primary-btn">
+
+            {% if resumes.items %}
+                ✏️ Edit Resume
+            {% else %}
+                ➕ Create Resume
+            {% endif %}
+
+        </a>
+
+        {% if resumes.items %}
+
+        <a
+            href="{{ url_for('resume.review') }}"
+            class="secondary-btn">
+
+            🤖 Review with AI
+
+        </a>
+
+        {% endif %}
+
+    </div>
 
     <br><br>
 
@@ -24,15 +48,88 @@ Resume Builder
 
         {% for resume in resumes %}
 
-            <div class="feature-card">
+        <div class="resume-card">
 
-                <h3>{{ resume.full_name }}</h3>
 
-                <p>{{ resume.email }}</p>
+            <div class="resume-card-header">
 
-                <p>{{ resume.location }}</p>
+
+                <div>
+
+                    <h3>
+                        {{ resume.full_name }}
+                    </h3>
+
+
+                    <p>
+                        {{ resume.email }}
+                    </p>
+
+
+                    <p>
+                        📍 {{ resume.location or "Location not added" }}
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="resume-score">
+
+                    {{ resume_reviews[resume.id].overall_score }}%
+
+                </div>
+
 
             </div>
+
+
+
+            <p>
+
+                📅 Updated:
+
+                {% if resume.updated_at %}
+
+                    {{ resume.updated_at.strftime("%d %b %Y") }}
+
+                {% else %}
+
+                    Recently created
+
+                {% endif %}
+
+            </p>
+
+
+
+            <div class="resume-card-actions">
+
+
+                <a
+                    href="{{ url_for('resume.add_resume') }}"
+                    class="primary-btn">
+
+                    ✏️ Edit
+
+                </a>
+
+
+
+                <a
+                    href="{{ url_for('resume.review') }}"
+                    class="secondary-btn">
+
+                    🤖 AI Review
+
+                </a>
+
+
+            </div>
+
+
+        </div>
 
         {% endfor %}
 

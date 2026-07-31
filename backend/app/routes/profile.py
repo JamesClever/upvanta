@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.extensions import db
 from app.services.image_service import save_profile_picture
 
+from app.services.resume_service import sync_resume_from_profile
 
 profile = Blueprint(
     "profile",
@@ -25,6 +26,8 @@ def index():
         current_user.experience = request.form.get("experience")
 
 
+
+
         # Profile Picture
         picture = request.files.get("profile_picture")
 
@@ -34,6 +37,9 @@ def index():
             current_user.profile_picture = filename
 
         db.session.commit()
+
+        # Synchronize profile information to the user's resume
+        sync_resume_from_profile(current_user)
 
         flash(
             "Profile updated successfully!",

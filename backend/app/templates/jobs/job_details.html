@@ -40,9 +40,20 @@
 
         <br>
 
-        <a href="#" class="primary-btn">
-            Apply Now
-        </a>
+        <form
+            method="POST"
+            action="{{ url_for('jobs.apply_job', job_id=job.id) }}"
+            style="display:inline;">
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                Apply Now
+
+            </button>
+
+        </form>
 
         <a href="{{ url_for('jobs.edit_job', job_id=job.id) }}"class="secondary-btn">
             ✏️ Edit Job

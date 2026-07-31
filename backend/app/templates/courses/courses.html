@@ -97,13 +97,28 @@ Courses - Upvanta
                     {{ course.duration }}
                 </p>
 
-                <a
-                    href="{{ url_for('courses.course_details', course_id=course.id) }}"
-                    class="primary-btn">
+                {% if course.external %}
 
-                    View Details
+                <a
+                href="{{ course.url }}"
+                target="_blank"
+                class="primary-btn">
+
+                Visit Course
 
                 </a>
+
+                {% else %}
+
+                <a
+                href="{{ url_for('courses.course_details', course_id=course.id) }}"
+                class="primary-btn">
+
+                View Details
+
+                </a>
+
+                {% endif %}
 
             </div>
 
@@ -125,7 +140,7 @@ Courses - Upvanta
 
         {% endif %}
 
-        {% if courses.pages > 1 %}
+        {% if courses.pages and courses.pages > 1 %}
 
         <div class="pagination">
 

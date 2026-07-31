@@ -19,6 +19,13 @@ class User(UserMixin, db.Model):
         cascade="all, delete-orphan"
     )
 
+    applications = db.relationship(
+        "JobApplication",
+        backref="user",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
     # Memories
     
     memories = db.relationship(
@@ -81,6 +88,12 @@ class User(UserMixin, db.Model):
     experience = db.Column(
         db.Text,
         default=""
+    )
+
+    resumes = db.relationship(
+        "Resume",
+        backref="user",
+        lazy=True
     )
 
 

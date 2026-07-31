@@ -1,208 +1,339 @@
 {% extends "base.html" %}
 
-{% set page_title = "Dashboard" %}
-
 {% block title %}
 Dashboard
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet"
+
+
+<link
+    rel="stylesheet"
     href="{{ url_for('static', filename='css/pages/dashboard.css') }}">
 {% endblock %}
 
-
 {% block content %}
 
-<section class="dashboard">
+<section class="dashboard-page">
 
-    <div class="container">
+    <!-- ==========================================
+         TOP BAR
+    =========================================== -->
 
+    <header class="dashboard-topbar">
 
-<div class="dashboard-header">
+        <div class="dashboard-search">
 
-<h1>
-Welcome back, {{ user.full_name }} 👋
-</h1>
+            <input
+                type="search"
+                placeholder="Search jobs, courses, scholarships...">
 
-<p>
-Your personal career growth dashboard.
-</p>
-
-</div>
-
-<div class="dashboard-stats">
-
-    <div class="dashboard-stat-card profile">
-
-        <div class="stat-icon">👤</div>
-
-        <h2>{{ stats.profile }}%</h2>
-
-        <p>Profile Complete</p>
-
-        <div class="progress-bar">
-            <div
-                class="progress-fill"
-                style="width: {{ stats.profile }}%;"
-            ></div>
         </div>
 
+        <div class="dashboard-topbar-right">
+
+            <button class="notification-btn">
+
+                🔔
+
+            </button>
+
+            {% set avatar_class = "topbar-avatar" %}
+            {% include "components/avatar.html" %}
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <section class="dashboard-header">
+
+        <div class="dashboard-header-top">
+
+            <h1>
+
+                Welcome Back, {{ current_user.full_name }} 👋
+
+            </h1>
+
+            <p>
+
+                Here's what's happening with your career journey today.
+
+            </p>
+
+        </div>
+
+        <span class="dashboard-time">
+
+            🗓️{{ current_date }}
+
+        </span>
+
+    </section>
+
+    <!-- ==========================================
+        DASHBOARD STATS
+    ========================================== -->
+
+    <section class="dashboard-stats">
+
+        <article class="stat-card">
+
+            <div class="stat-icon blue">
+                💼
+            </div>
+
+            <div class="stat-info">
+
+                <span class="stat-title">
+                    Job Applications
+                </span>
+
+                <h2>
+                    {{ jobs_count or 0 }}
+                </h2>
+
+                <a href="{{ url_for('jobs.list_jobs') }}">
+                    View all
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon green">
+                📚
+            </div>
+
+            <div class="stat-info">
+
+                <span class="stat-title">
+                    Enrolled Courses
+                </span>
+
+                <h2>
+                    {{ courses_count or 0 }}
+                </h2>
+
+                <a href="{{ url_for('courses.list_courses') }}">
+                    Continue Learning
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon purple">
+                🎓
+            </div>
+
+            <div class="stat-info">
+
+                <span class="stat-title">
+                    Saved Scholarships
+                </span>
+
+                <h2>
+                    {{ scholarships_count or 0 }}
+                </h2>
+
+                <a href="{{ url_for('scholarships.list_scholarships') }}">
+                    View all
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon orange">
+                🤝
+            </div>
+
+            <div class="stat-info">
+
+                <span class="stat-title">
+                    Mentorship Requests
+                </span>
+
+                <h2>
+                    {{ mentorship_count or 0 }}
+                </h2>
+
+                <a href="{{ url_for('mentorships.list_mentorships') }}">
+                    View all
+                </a>
+
+            </div>
+
+        </article>
+
+        </section>
+
+
+    <!-- ==========================================
+        DASHBOARD CONTENT
+    =========================================== -->
+
+    <section class="dashboard-body">
+
+
+    <div class="dashboard-left">
+
+        <section class="dashboard-activity">
+
+            <div class="section-header">
+
+                <h3>Recent Activity</h3>
+
+                <a
+                    href="{{ url_for('assist.index') }}"
+                    class="view-all-link">
+
+                    View All
+
+                </a>
+
+            </div>
+
+            <!-- Activity content -->
+
+        </section>
+
+        <section class="dashboard-progress">
+
+            <div class="section-header">
+
+                <h3>Your Progress</h3>
+
+            </div>
+
+            <div class="progress-grid">
+
+                <!-- Profile -->
+
+                <div class="progress-card">
+
+                    <div
+                        class="progress-ring profile-ring"
+                        style="--progress: {{ profile_progress }};">
+
+                        <div class="progress-inner">
+
+                            <div class="progress-icon">
+                                👤
+                            </div>
+
+                            <span>
+
+                                {{ profile_progress }}%
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <h4>Profile Completion</h4>
+
+                </div>
+
+                <!-- Resume -->
+
+                <div class="progress-card">
+
+                    <div
+                        class="progress-ring resume-ring"
+                        style="--progress: {{ resume_progress }};">
+
+                        <div class="progress-inner">
+
+                            <div class="progress-icon">
+                                📄
+                            </div>
+
+                            <span>
+
+                                {{ resume_progress }}%
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <h4>Resume Builder</h4>
+
+                </div>
+
+                <!-- Jobs -->
+
+                <div class="progress-card">
+
+                    <div
+                        class="progress-ring jobs-ring"
+                        style="--progress: {{ jobs_progress }};">
+
+                        <div class="progress-inner">
+
+                            <div class="progress-icon">
+                                💼
+                            </div>
+
+                            <span>
+
+                                {{ jobs_progress }}%
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <h4>Job Applications</h4>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </div>
 
-    <div class="dashboard-stat-card jobs">
+    <aside class="dashboard-recommended">
 
-        <div class="stat-icon">💼</div>
+        <div class="section-header">
 
-        <h2>{{ stats.jobs }}</h2>
+            <h3>Recommended For You</h3>
 
-        <p>Recommended Jobs</p>
+            <a
+                href="#"
+                class="view-all-link">
 
-    </div>
+                View All
 
-    <div class="dashboard-stat-card scholarships">
+            </a>
 
-        <div class="stat-icon">🎓</div>
+        </div>
 
-        <h2>{{ stats.scholarships }}</h2>
+        <!-- Recommended content goes here -->
 
-        <p>Scholarships</p>
-
-    </div>
-
-    <div class="dashboard-stat-card courses">
-
-        <div class="stat-icon">📚</div>
-
-        <h2>{{ stats.courses }}</h2>
-
-        <p>Courses</p>
-
-    </div>
-
-    <div class="dashboard-stat-card mentors">
-
-        <div class="stat-icon">🤝</div>
-
-        <h2>{{ stats.mentorships }}</h2>
-
-        <p>Mentorships</p>
-
-    </div>
-
-    <div class="dashboard-stat-card resumes">
-
-        <div class="stat-icon">📄</div>
-
-        <h2>{{ stats.resumes }}</h2>
-
-        <p>Resumes</p>
-
-    </div>
-
-</div>
-
-<h2 class="section-title">
-    Explore Upvanta
-</h2>
-
-<div class="dashboard-grid">
-
-    <!-- Scholarships -->
-    <div class="dashboard-card">
-
-        <h3>🎓 Scholarships</h3>
-
-        <p>Discover global education funding.</p>
-
-        <a href="{{ url_for('scholarships.list_scholarships') }}">
-            View Scholarships →
-        </a>
-
-    </div>
-
-    <!-- Jobs -->
-    <div class="dashboard-card">
-        <h3>💼 Jobs</h3>
-        <p>Find remote and local opportunities.</p>
-
-        <a href="{{ url_for('jobs.list_jobs') }}">
-            Explore Jobs →
-        </a>
-    </div>
-
-    <!-- Courses -->
-    <div class="dashboard-card">
-        <h3>📚 Courses</h3>
-        <p>Learn valuable career skills.</p>
-
-        <a href="{{ url_for('courses.list_courses') }}">
-            Browse Courses →
-        </a>
-    </div>
-
-    <!-- Mentorships -->
-    <div class="dashboard-card">
-        <h3>🤝 Mentorships</h3>
-        <p>Connect with experienced professionals.</p>
-
-        <a href="{{ url_for('mentorships.list_mentorships') }}">
-            Find Mentors →
-        </a>
-    </div>
-
-    <!-- Resume Builder -->
-    <div class="dashboard-card">
-        <h3>📄 Resume Builder</h3>
-        <p>Create an ATS-friendly resume.</p>
-
-        <a href="{{ url_for('resume.list_resumes') }}">
-            Build Resume →
-        </a>
-    </div>
-
-    <!-- Saved Jobs -->
-    <div class="dashboard-card">
-        <h3>⭐ Saved Jobs</h3>
-
-        <h2>{{ stats.saved_jobs }}</h2>
-
-        <p>Your bookmarked opportunities.</p>
-
-        <a href="#">
-            View Saved Jobs →
-        </a>
-    </div>
-
-
-    <!-- AI Career Coach -->
-    <div class="dashboard-card">
-        <h3>🤖 AI Career Coach</h3>
-        <p>Get personalized career guidance powered by AI.</p>
-
-        <a href="#">
-            Coming Soon →
-        </a>
-    </div>
-
-    <div class="dashboard-card">
-
-        <h3>🤝 Upvanta Assist</h3>
-
-        <p>Find trusted people nearby to run errands, inspect properties, pick up items, and more.</p>
-
-        <a href="{{ url_for('assist.index') }}">
-            Find Helpers →
-        </a>
-
-    </div>
-
-
-</div>
-
-</div>
+    </aside>
 
 </section>
-
 
 {% endblock %}

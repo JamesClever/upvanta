@@ -3,6 +3,7 @@ from flask import Flask
 from .config import Config
 from .extensions import db, login_manager, migrate, bcrypt
 
+
 from .routes.main import main
 from .routes.auth import auth
 from .routes.dashboard import dashboard
