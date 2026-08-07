@@ -41,3 +41,8 @@ class Config:
     OPENAI_API_KEY = os.environ.get(
         "OPENAI_API_KEY"
     )
+
+    # RapidAPI Job Search
+    RAPIDAPI_KEY = os.environ.get(
+        "RAPIDAPI_KEY"
+    )

@@ -1,0 +1,175 @@
+<aside class="sidebar">
+
+    <!-- ==========================================
+         LOGO
+    =========================================== -->
+
+    <div class="sidebar-logo">
+
+        <a href="{{ url_for('dashboard.index') }}">
+
+            <span class="logo-mark">▲</span>
+
+            <span class="logo-text">
+                UPVANTA
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         NAVIGATION
+    =========================================== -->
+
+    <nav class="sidebar-nav">
+
+        <!-- Dashboard -->
+
+        <a
+            href="{{ url_for('dashboard.index') }}"
+            class="sidebar-link {% if request.endpoint == 'dashboard.index' %}active{% endif %}">
+
+            <span class="sidebar-icon">🏠</span>
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <!-- Jobs -->
+
+        <a
+            href="{{ url_for('job.list_jobs') }}"
+            class="sidebar-link {% if request.endpoint.startswith('job.') %}active{% endif %}">
+
+            <span class="sidebar-icon">💼</span>
+            <span>Jobs</span>
+
+        </a>
+
+
+        <!-- Courses -->
+
+        <a
+            href="{{ url_for('course.list_courses') }}"
+            class="sidebar-link {% if request.endpoint.startswith('course.') %}active{% endif %}">
+
+            <span class="sidebar-icon">📚</span>
+            <span>Courses</span>
+
+        </a>
+
+
+        <!-- Scholarships -->
+
+        <a
+            href="{{ url_for('scholarship.list_scholarships') }}"
+            class="sidebar-link {% if request.endpoint.startswith('scholarship.') %}active{% endif %}">
+
+            <span class="sidebar-icon">🎓</span>
+            <span>Scholarships</span>
+
+        </a>
+
+
+        <!-- Mentorship -->
+
+        <a
+            href="{{ url_for('mentorship.list_mentorships') }}"
+            class="sidebar-link {% if request.endpoint.startswith('mentorship.') %}active{% endif %}">
+
+            <span class="sidebar-icon">🤝</span>
+            <span>Mentorships</span>
+
+        </a>
+
+
+        <!-- Resume -->
+
+        <a
+            href="{{ url_for('resume.list_resumes') }}"
+            class="sidebar-link {% if request.endpoint.startswith('resume.') %}active{% endif %}">
+
+            <span class="sidebar-icon">📄</span>
+            <span>Resume Builder</span>
+
+        </a>
+
+
+        <!-- Assist -->
+
+        <a
+            href="{{ url_for('assist.index') }}"
+            class="sidebar-link {% if request.endpoint.startswith('assist.') %}active{% endif %}">
+
+            <span class="sidebar-icon">🚀</span>
+            <span>Upvanta Assist</span>
+
+        </a>
+
+
+        <!-- AI Coach -->
+
+        <a
+            href="{{ url_for('ai.ai_coach') }}"
+            class="sidebar-link {% if request.endpoint.startswith('ai.') %}active{% endif %}">
+
+            <span class="sidebar-icon">🤖</span>
+            <span>AI Coach</span>
+
+        </a>
+
+
+        <!-- Profile -->
+
+        <a
+            href="{{ url_for('profile.index') }}"
+            class="sidebar-link {% if request.endpoint.startswith('profile.') %}active{% endif %}">
+
+            <span class="sidebar-icon">👤</span>
+            <span>Profile</span>
+
+        </a>
+
+    </nav>
+
+
+
+    <!-- ==========================================
+         USER
+    =========================================== -->
+
+    <div class="sidebar-bottom">
+
+        <div class="sidebar-user">
+
+            {% set avatar_class = "sidebar-avatar" %}
+            {% include "component/profile/avatar.html" %}
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ current_user.full_name }}
+                </strong>
+
+                <small>
+                    Career Explorer
+                </small>
+
+            </div>
+
+        </div>
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="sidebar-logout">
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>

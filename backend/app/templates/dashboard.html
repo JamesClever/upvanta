@@ -39,8 +39,8 @@ Dashboard
             </button>
 
             {% set avatar_class = "topbar-avatar" %}
-            {% include "components/avatar.html" %}
-
+            {% include "component/profile/avatar.html" %}
+            
         </div>
 
     </header>
@@ -99,7 +99,7 @@ Dashboard
                     {{ jobs_count or 0 }}
                 </h2>
 
-                <a href="{{ url_for('jobs.list_jobs') }}">
+                <a href="{{ url_for('job.list_jobs') }}">
                     View all
                 </a>
 
@@ -124,7 +124,7 @@ Dashboard
                     {{ courses_count or 0 }}
                 </h2>
 
-                <a href="{{ url_for('courses.list_courses') }}">
+                <a href="{{ url_for('course.list_courses') }}">
                     Continue Learning
                 </a>
 
@@ -149,7 +149,7 @@ Dashboard
                     {{ scholarships_count or 0 }}
                 </h2>
 
-                <a href="{{ url_for('scholarships.list_scholarships') }}">
+                <a href="{{ url_for('scholarship.list_scholarships') }}">
                     View all
                 </a>
 
@@ -174,7 +174,7 @@ Dashboard
                     {{ mentorship_count or 0 }}
                 </h2>
 
-                <a href="{{ url_for('mentorships.list_mentorships') }}">
+                <a href="{{ url_for('mentorship.list_mentorships') }}">
                     View all
                 </a>
 
@@ -198,19 +198,100 @@ Dashboard
 
             <div class="section-header">
 
-                <h3>Recent Activity</h3>
-
-                <a
-                    href="{{ url_for('assist.index') }}"
-                    class="view-all-link">
-
-                    View All
-
-                </a>
+                <h3>
+                    Recent Activity
+                </h3>
 
             </div>
 
-            <!-- Activity content -->
+            {% if recent_activities %}
+
+                <div class="activity-list">
+
+                    {% for activity in recent_activities %}
+
+                        <a
+                            href="{{ activity.url }}"
+                            class="activity-item">
+
+                            <div class="activity-icon">
+
+                                {{ activity.icon }}
+
+                            </div>
+
+                            <div class="activity-content">
+
+                                <span class="activity-title">
+
+                                    {{ activity.title }}
+
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="activity-empty">
+
+                    <div class="activity-empty-icon">
+
+                        🚀
+
+                    </div>
+
+                    <h4>
+
+                        No recent activity today,
+                        {{ current_user.full_name.split()[0] }}.
+
+                    </h4>
+
+                    <p>
+
+                        Complete your profile, build your resume,
+                        or apply for your first job to start your
+                        career timeline.
+
+                    </p>
+
+                    <div class="activity-actions">
+
+                        <a
+                            href="{{ url_for('profile.index') }}"
+                            class="activity-action-btn">
+
+                            Complete Profile
+
+                        </a>
+
+                        <a
+                            href="{{ url_for('resume.add_resume') }}"
+                            class="activity-action-btn">
+
+                            Build Resume
+
+                        </a>
+
+                        <a
+                            href="{{ url_for('job.list_jobs') }}"
+                            class="activity-action-btn">
+
+                            Browse Jobs
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
 
         </section>
 

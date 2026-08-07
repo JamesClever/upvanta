@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ job.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <br><br>
+
+    <a href="{{ url_for('jobs.list_jobs') }}">
+        ← Back to Jobs
+    </a>
+
+    <br><br>
+
+    <div class="feature-card">
+
+        <h1>{{ job.title }}</h1>
+
+        <br>
+
+        <h3>{{ job.company }}</h3>
+
+        <p><strong>Location:</strong> {{ job.location }}</p>
+
+        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+
+        <p><strong>Category:</strong> {{ job.category }}</p>
+
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+
+        <hr><br>
+
+        <h3>Description</h3>
+
+        <p>{{ job.description }}</p>
+
+        <br>
+
+        <form
+            method="POST"
+            action="{{ url_for('jobs.apply_job', job_id=job.id) }}"
+            style="display:inline;">
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                Apply Now
+
+            </button>
+
+        </form>
+
+        <a
+            href="{{ url_for('jobs.edit_job', job_id=job.id) }}"
+            class="secondary-btn">
+            ✏️ Edit Job
+        </a>
+
+        <form method="POST"
+            action="{{ url_for('jobs.delete_job', job_id=job.id) }}"
+            style="display:inline;">
+
+            <button type="submit" class="primary-btn">
+                🗑 Delete Job
+            </button>
+
+        </form>
+
+        <a href="#" class="secondary-btn">
+            Save Job
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

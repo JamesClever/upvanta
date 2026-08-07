@@ -1,9 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 
 from flask_login import login_required, current_user
-from app.models.resume import Resume
-from app.forms.resume_form import ResumeForm
-from app.services.ai_resume_review_service import review_resume
+
+from app.models.resume.resume import Resume
+from app.forms.resume.form import ResumeForm
+
+from app.services.resume.reviewer import review_resume
+from app.services.activity.activity import create_activity
+
 from app.extensions import db
 
 
@@ -25,9 +29,13 @@ def list_resumes():
     )
 
     if search:
+
         query = query.filter(
-            Resume.full_name.ilike(f"%{search}%")
+            Resume.full_name.ilike(
+                f"%{search}%"
+            )
         )
+
 
     resumes = query.order_by(
         Resume.id.desc()
@@ -44,6 +52,7 @@ def list_resumes():
 
     resume_reviews = {}
 
+
     for item in resumes.items:
 
         resume_reviews[item.id] = review_resume(
@@ -58,23 +67,32 @@ def list_resumes():
         resume_reviews=resume_reviews
     )
 
-@resume.route("/resume/add", methods=["GET", "POST"])
+
+
+@resume.route(
+    "/resume/add",
+    methods=["GET", "POST"]
+)
 @login_required
 def add_resume():
 
-    resume = Resume.query.filter_by(
+
+    user_resume = Resume.query.filter_by(
         user_id=current_user.id
     ).first()
 
+
     # ==========================================
-    # GET REQUEST
+    # LOAD FORM
     # ==========================================
 
     if request.method == "GET":
 
-        if resume:
+        if user_resume:
 
-            form = ResumeForm(obj=resume)
+            form = ResumeForm(
+                obj=user_resume
+            )
 
         else:
 
@@ -89,9 +107,12 @@ def add_resume():
                 }
             )
 
+
     else:
 
         form = ResumeForm()
+
+
 
     # ==========================================
     # SAVE RESUME
@@ -99,55 +120,124 @@ def add_resume():
 
     if form.validate_on_submit():
 
-        if resume is None:
 
-            resume = Resume(
+        if user_resume is None:
+
+
+            user_resume = Resume(
                 user_id=current_user.id
             )
 
-            db.session.add(resume)
+            db.session.add(
+                user_resume
+            )
 
-        resume.full_name = form.full_name.data
-        resume.email = form.email.data
-        resume.phone = form.phone.data
-        resume.location = form.location.data
-        resume.education = form.education.data
-        resume.experience = form.experience.data
-        resume.skills = form.skills.data
-        resume.summary = form.summary.data
+
+        user_resume.full_name = (
+            form.full_name.data
+        )
+
+        user_resume.email = (
+            form.email.data
+        )
+
+        user_resume.phone = (
+            form.phone.data
+        )
+
+        user_resume.location = (
+            form.location.data
+        )
+
+        user_resume.education = (
+            form.education.data
+        )
+
+        user_resume.experience = (
+            form.experience.data
+        )
+
+        user_resume.skills = (
+            form.skills.data
+        )
+
+        user_resume.summary = (
+            form.summary.data
+        )
+
 
         db.session.commit()
+
+
+
+        # ==========================================
+        # ACTIVITY ENGINE
+        # ==========================================
+
+        create_activity(
+            current_user,
+            icon="📄",
+            title="Resume Updated",
+            url=url_for(
+                "resume.list_resumes"
+            ),
+            module="resume"
+        )
+
 
         flash(
             "Resume saved successfully!",
             "success"
         )
 
+
         return redirect(
-            url_for("resume.list_resumes")
+            url_for(
+                "resume.list_resumes"
+            )
         )
 
+
     return render_template(
-        "resume/edit_resume.html",
+        "resume/edit.html",
         form=form
     )
+
+
 
 @resume.route("/resume/review")
 @login_required
 def review():
 
-    resume = Resume.query.filter_by(
+
+    user_resume = Resume.query.filter_by(
         user_id=current_user.id
     ).first()
 
 
+
+    if user_resume is None:
+
+        flash(
+            "Create a resume before requesting a review.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "resume.add_resume"
+            )
+        )
+
+
+
     review_result = review_resume(
-        resume
+        user_resume
     )
 
 
     return render_template(
         "resume/review.html",
-        resume=resume,
+        resume=user_resume,
         review=review_result
     )

@@ -15,8 +15,8 @@ from flask_login import (
 
 from app.extensions import db
 
-from app.models.helper import (
-    Helper,
+from app.models.helper.helper import Helper
+from app.models.helper.request_help import (
     HelpRequest,
     REQUEST_ACCEPTED,
     REQUEST_DECLINED,
@@ -42,10 +42,14 @@ def become_helper():
     if request.method == "POST":
 
         if helper_profile is None:
+
             helper_profile = Helper(
                 user_id=current_user.id
             )
-            db.session.add(helper_profile)
+
+            db.session.add(
+                helper_profile
+            )
 
         helper_profile.location = request.form.get(
             "location",
@@ -73,11 +77,13 @@ def become_helper():
         ).strip()
 
         try:
+
             helper_profile.hourly_rate = (
                 float(hourly_rate)
                 if hourly_rate
                 else 0
             )
+
         except ValueError:
 
             flash(
@@ -100,7 +106,9 @@ def become_helper():
         )
 
         return redirect(
-            url_for("profile.index")
+            url_for(
+                "profile.index"
+            )
         )
 
     return render_template(
@@ -117,12 +125,19 @@ def become_helper():
 @login_required
 def request_help(helper_id):
 
-    helper_profile = Helper.query.get_or_404(helper_id)
+    helper_profile = Helper.query.get_or_404(
+        helper_id
+    )
 
     if request.method == "POST":
 
-        preferred_date = request.form.get("preferred_date")
-        preferred_time = request.form.get("preferred_time")
+        preferred_date = request.form.get(
+            "preferred_date"
+        )
+
+        preferred_time = request.form.get(
+            "preferred_time"
+        )
 
         try:
 
@@ -162,7 +177,13 @@ def request_help(helper_id):
         ).strip()
 
         try:
-            budget = float(budget) if budget else 0
+
+            budget = (
+                float(budget)
+                if budget
+                else 0
+            )
+
         except ValueError:
 
             flash(
@@ -178,7 +199,10 @@ def request_help(helper_id):
         help_request = HelpRequest(
             requester_id=current_user.id,
             helper_id=helper_profile.id,
-            title=request.form.get("title", "").strip(),
+            title=request.form.get(
+                "title",
+                ""
+            ).strip(),
             description=request.form.get(
                 "description",
                 ""
@@ -192,7 +216,10 @@ def request_help(helper_id):
             budget=budget,
         )
 
-        db.session.add(help_request)
+        db.session.add(
+            help_request
+        )
+
         db.session.commit()
 
         flash(
@@ -201,13 +228,16 @@ def request_help(helper_id):
         )
 
         return redirect(
-            url_for("assist.index")
+            url_for(
+                "assist.index"
+            )
         )
 
     return render_template(
         "helper/request_help.html",
         helper=helper_profile
     )
+
 
 # =====================================================
 # View Help Request Details
@@ -226,6 +256,7 @@ def request_details(request_id):
         help_request=help_request
     )
 
+
 # =====================================================
 # Accept Help Request
 # =====================================================
@@ -239,12 +270,16 @@ def accept_request(request_id):
     )
 
     if help_request.helper.user_id != current_user.id:
+
         flash(
             "You cannot accept this request.",
             "danger"
         )
+
         return redirect(
-            url_for("assist.index")
+            url_for(
+                "assist.index"
+            )
         )
 
     help_request.status = REQUEST_ACCEPTED
@@ -257,8 +292,11 @@ def accept_request(request_id):
     )
 
     return redirect(
-        url_for("assist.index")
+        url_for(
+            "assist.index"
+        )
     )
+
 
 # =====================================================
 # Decline Help Request
@@ -273,12 +311,16 @@ def decline_request(request_id):
     )
 
     if help_request.helper.user_id != current_user.id:
+
         flash(
             "You cannot decline this request.",
             "danger"
         )
+
         return redirect(
-            url_for("assist.index")
+            url_for(
+                "assist.index"
+            )
         )
 
     help_request.status = REQUEST_DECLINED
@@ -291,8 +333,11 @@ def decline_request(request_id):
     )
 
     return redirect(
-        url_for("assist.index")
+        url_for(
+            "assist.index"
+        )
     )
+
 
 # =====================================================
 # Cancel Help Request
@@ -307,13 +352,16 @@ def cancel_request(request_id):
     )
 
     if help_request.requester_id != current_user.id:
+
         flash(
             "You cannot cancel this request.",
             "danger"
         )
 
         return redirect(
-            url_for("assist.index")
+            url_for(
+                "assist.index"
+            )
         )
 
     help_request.status = REQUEST_CANCELLED
@@ -326,8 +374,11 @@ def cancel_request(request_id):
     )
 
     return redirect(
-        url_for("assist.index")
+        url_for(
+            "assist.index"
+        )
     )
+
 
 # =====================================================
 # Complete Help Request
@@ -342,13 +393,16 @@ def complete_request(request_id):
     )
 
     if help_request.helper.user_id != current_user.id:
+
         flash(
             "You cannot complete this request.",
             "danger"
         )
 
         return redirect(
-            url_for("assist.index")
+            url_for(
+                "assist.index"
+            )
         )
 
     help_request.status = REQUEST_COMPLETED
@@ -361,7 +415,7 @@ def complete_request(request_id):
     )
 
     return redirect(
-        url_for("assist.index")
+        url_for(
+            "assist.index"
+        )
     )
-
-    

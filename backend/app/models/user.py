@@ -96,6 +96,21 @@ class User(UserMixin, db.Model):
         lazy=True
     )
 
+    saved_scholarships = db.relationship(
+        "SavedScholarship",
+        backref="user",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
+
+    scholarship_applications = db.relationship(
+        "ScholarshipApplication",
+        backref="user",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
 
     # Upvanta Assist
 

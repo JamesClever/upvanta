@@ -1,8 +1,8 @@
 from app.models.resume import Resume
-from app.models.job_application import JobApplication
+from app.models.job.job_application import JobApplication
 
-from app.services.profile_service import calculate_profile_completion
-from app.services.resume_service import calculate_resume_completion
+from app.services.profile.profile import calculate_profile_completion
+from app.services.resume.builder import calculate_resume_completion
 
 
 def calculate_career_progress(user):

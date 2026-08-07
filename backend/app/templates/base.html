@@ -55,16 +55,9 @@
 
 <div class="app-layout">
 
-    {% include "components/sidebar.html" %}
+    {% include "component/layout/sidebar.html" %}
 
     <main class="app-content">
-
-        {% block content %}
-        {% endblock %}
-
-    </main>
-
-</div>
 
 {% else %}
 
@@ -89,9 +82,7 @@
             <li>
 
                 <a href="{{ url_for('main.home') }}">
-
                     Home
-
                 </a>
 
             </li>
@@ -99,9 +90,7 @@
             <li>
 
                 <a href="{{ url_for('ai.ai_coach') }}">
-
                     AI Coach
-
                 </a>
 
             </li>
@@ -138,11 +127,15 @@
 
 <main class="public-content">
 
-    {% block public_content %}
+{% endif %}
+
+    {% block content %}
     {% endblock %}
 
 </main>
 
+{% if current_user.is_authenticated %}
+</div>
 {% endif %}
 
 <!-- Global JavaScript -->

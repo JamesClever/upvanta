@@ -2,16 +2,16 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from . import ai
-from .services import ask_ai_coach
 
 from app.extensions import db
-from app.models.chat import ChatMessage
-from app.models.conversation import Conversation
 
+from app.models.ai.chat import ChatMessage
+from app.models.ai.conversation import Conversation
 
-from .ai_memory import (
+from app.ai.services.services import ask_ai_coach
+from app.ai.services.memory import (
     extract_memories,
-    get_user_memories
+    get_user_memories,
 )
 
 
@@ -32,13 +32,16 @@ def ai_coach():
         conversation = conversations[0]
 
     if conversation:
+
         messages = (
             ChatMessage.query
             .filter_by(conversation_id=conversation.id)
             .order_by(ChatMessage.created_at.asc())
             .all()
         )
+
     else:
+
         messages = []
 
     return render_template(
@@ -105,12 +108,20 @@ def open_chat(conversation_id):
 @login_required
 def ai_chat():
 
-    message = request.form.get("message", "").strip()
+    message = request.form.get(
+        "message",
+        ""
+    ).strip()
 
-    conversation_id = request.form.get("conversation_id")
+    conversation_id = request.form.get(
+        "conversation_id"
+    )
 
     if not message:
-        return redirect(url_for("ai.ai_coach"))
+
+        return redirect(
+            url_for("ai.ai_coach")
+        )
 
     conversation = Conversation.query.filter_by(
         id=conversation_id,
@@ -128,7 +139,6 @@ def ai_chat():
         db.session.add(conversation)
         db.session.commit()
 
-
     user_message = ChatMessage(
         conversation_id=conversation.id,
         user_id=current_user.id,
@@ -137,9 +147,7 @@ def ai_chat():
     )
 
     db.session.add(user_message)
-
     db.session.commit()
-
 
     # Extract important information from user message
 
@@ -148,8 +156,7 @@ def ai_chat():
         message
     )
 
-
-    # Retrieve all saved user memories
+    # Retrieve saved memories
 
     memories = get_user_memories(
         current_user.id
@@ -157,13 +164,17 @@ def ai_chat():
 
     history = (
         ChatMessage.query
-        .filter_by(conversation_id=conversation.id)
-        .order_by(ChatMessage.created_at.asc())
+        .filter_by(
+            conversation_id=conversation.id
+        )
+        .order_by(
+            ChatMessage.created_at.asc()
+        )
         .limit(50)
         .all()
     )
 
-    # Generate personalized AI response
+    # Generate AI response
 
     response = ask_ai_coach(
         current_user,
@@ -171,7 +182,6 @@ def ai_chat():
         history,
         memories
     )
-    
 
     ai_message = ChatMessage(
         conversation_id=conversation.id,
@@ -192,5 +202,3 @@ def ai_chat():
             conversation_id=conversation.id
         )
     )
-
-

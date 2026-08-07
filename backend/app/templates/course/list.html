@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% set page_title = "Courses" %}
+
+{% block title %}
+Courses - Upvanta
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/pages/course.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<section class="courses-page">
+
+    <div class="container">
+
+        <div class="courses-header">
+
+            <h1>📚 Available Courses</h1>
+
+            <p>
+                Discover professional courses to improve your skills and advance your career.
+            </p>
+
+        </div>
+
+        <form method="GET" class="courses-search">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search courses..."
+                value="{{ search }}"
+                class="search-box"
+            >
+
+            <div class="courses-actions">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+                    Search
+                </button>
+
+                {% if search %}
+
+                <a
+                    href="{{ url_for('courses.list_courses') }}"
+                    class="secondary-btn">
+                    Clear
+                </a>
+
+                {% endif %}
+
+                <a
+                    href="{{ url_for('courses.add_course') }}"
+                    class="primary-btn">
+                    + Add Course
+                </a>
+
+            </div>
+
+        </form>
+
+        {% if courses.items %}
+
+        <div class="courses-grid">
+
+            {% for course in courses.items %}
+
+            <div class="courses-card">
+
+                <h3>{{ course.title }}</h3>
+
+                <p>
+                    <strong>Platform:</strong>
+                    {{ course.platform }}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ course.category }}
+                </p>
+
+                <p>
+                    <strong>Level:</strong>
+                    {{ course.level }}
+                </p>
+
+                <p>
+                    <strong>Duration:</strong>
+                    {{ course.duration }}
+                </p>
+
+                {% if course.external %}
+
+                <a
+                    href="{{ course.url }}"
+                    target="_blank"
+                    class="primary-btn">
+
+                    Visit Course
+
+                </a>
+
+                {% else %}
+
+                <a
+                    href="{{ url_for('courses.course_details', course_id=course.id) }}"
+                    class="primary-btn">
+
+                    View Details
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="courses-card courses-empty">
+
+            <h2>No Courses Available</h2>
+
+            <p>
+                New learning opportunities will appear here soon.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        {% if courses.pages > 1 %}
+
+        <div class="pagination">
+
+            {% if courses.has_prev %}
+
+            <a
+                href="{{ url_for('courses.list_courses',
+                    page=courses.prev_num,
+                    search=search) }}"
+                class="secondary-btn">
+
+                ← Previous
+
+            </a>
+
+            {% endif %}
+
+            <span class="page-number">
+
+                Page {{ courses.page }} of {{ courses.pages }}
+
+            </span>
+
+            {% if courses.has_next %}
+
+            <a
+                href="{{ url_for('courses.list_courses',
+                    page=courses.next_num,
+                    search=search) }}"
+                class="primary-btn">
+
+                Next →
+
+            </a>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

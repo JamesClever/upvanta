@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 
-from app.models.helper import (
-    Helper,
-    HelpRequest,
-)
+from app.models.helper.helper import Helper
+from app.models.helper.request_help import HelpRequest
+
 
 assist = Blueprint(
     "assist",
@@ -16,11 +15,17 @@ assist = Blueprint(
 @login_required
 def index():
 
-    # All available helpers
+    # ==========================================
+    # AVAILABLE HELPERS
+    # ==========================================
+
     helpers = Helper.query.all()
 
 
-    # Requests created by the logged-in user
+    # ==========================================
+    # MY REQUESTS
+    # ==========================================
+
     my_requests = (
         HelpRequest.query
         .filter_by(
@@ -33,8 +38,10 @@ def index():
     )
 
 
-    # Requests received by the logged-in user
-    # only if they are a helper
+    # ==========================================
+    # INCOMING REQUESTS
+    # ==========================================
+
     incoming_requests = []
 
     if current_user.helper_profile:
@@ -63,7 +70,9 @@ def index():
 @login_required
 def helper_profile(helper_id):
 
-    helper = Helper.query.get_or_404(helper_id)
+    helper = Helper.query.get_or_404(
+        helper_id
+    )
 
     return render_template(
         "assist/helper_profile.html",
