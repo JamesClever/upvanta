@@ -5,10 +5,11 @@ Boost jobs that better match the current user.
 """
 
 
-def personalization_bonus(job, user):
+def personalization_score(job, user):
 
     if not user:
-        return 0
+        return 0, "No user personalization"
+
 
     score = 0
 
@@ -30,6 +31,7 @@ def personalization_bonus(job, user):
 
         if preferred_location.lower() in location:
             score += 15
+
 
     # -------------------------
     # Remote Preference
@@ -54,4 +56,7 @@ def personalization_bonus(job, user):
         if "remote" in title or "remote" in description:
             score += 20
 
-    return score
+
+    normalized = min(score / 20, 1.0)
+
+    return normalized, "Personalized recommendation"

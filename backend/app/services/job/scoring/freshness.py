@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def recent_bonus(job):
+def freshness_score(job):
     """
     Reward recently posted jobs.
     """
@@ -9,7 +9,7 @@ def recent_bonus(job):
     date = job.get("date_posted")
 
     if not date:
-        return 0
+        return 0, "No posting date"
 
     try:
 
@@ -23,18 +23,18 @@ def recent_bonus(job):
         ).days
 
     except Exception:
-        return 0
+        return 0, "Invalid posting date"
 
     if age <= 1:
-        return 20
+        return 1.0, "Posted today"
 
     if age <= 3:
-        return 15
+        return 0.75, "Posted this week"
 
     if age <= 7:
-        return 10
+        return 0.50, "Posted this week"
 
     if age <= 30:
-        return 5
+        return 0.25, "Posted this month"
 
-    return 0
+    return 0, "Older posting"

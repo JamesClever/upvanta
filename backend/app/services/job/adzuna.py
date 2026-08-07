@@ -1,6 +1,7 @@
 import os
 import requests
 
+
 ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")
 ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
 
@@ -30,6 +31,10 @@ def search_adzuna_jobs(query):
             timeout=15
         )
 
+        print(response.status_code)
+        print(response.url)
+        print(response.text)
+
         response.raise_for_status()
 
         data = response.json()
@@ -56,14 +61,20 @@ def search_adzuna_jobs(query):
 
                 "description": item.get("description"),
 
-                "apply_link": item.get("redirect_url"),
+                "apply_url": item.get("redirect_url"),
 
                 "source": "Adzuna"
 
             })
 
+        print(f"Adzuna returned {len(jobs)} jobs")
+
         return jobs
 
-    except Exception:
+    except Exception as e:
+        print("Adzuna Error:", e)
+
+        if 'response' in locals():
+            print(response.text)
 
         return []

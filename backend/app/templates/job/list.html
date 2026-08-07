@@ -241,6 +241,10 @@ Jobs - Upvanta
                         {{ job.company }}
                     </p>
 
+                    <p style="color:gray;font-size:12px">
+                        {{ job.source }}
+                    </p>
+
                     <p>
                         <strong>📍 Location:</strong>
                         {{ job.location }}
@@ -253,11 +257,6 @@ Jobs - Upvanta
                     </p>
                     {% endif %}
 
-                    <p>
-                        <strong>Source:</strong>
-                        {{ job.source|title }}
-                    </p>
-
                 </div>
 
                 <div class="jobs-description">
@@ -269,8 +268,9 @@ Jobs - Upvanta
                 </div>
 
                 <a
-                    href="{{ job.url }}"
+                    href="{{ job.apply_url }}"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="primary-btn">
 
                     Apply Now

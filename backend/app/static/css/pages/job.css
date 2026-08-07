@@ -33,18 +33,29 @@
    SEARCH
 ===================================== */
 
-.jobs-search{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:45px;
+.jobs-search {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
-.jobs-search .search-box{
-    width:420px;
-    max-width:100%;
+.jobs-search .search-box {
+    width: 420px;
+    max-width: 100%;
+}
+
+.search-box {
+    height: 60px;
+    flex: 1;
+    padding: 0 25px;
+    border-radius: 15px;
+}
+
+.jobs-search .primary-btn {
+    height: 60px;
+    padding: 0 40px;
+    border-radius: 15px;
 }
 
 /* =====================================
@@ -262,38 +273,63 @@
    RESPONSIVE
 ===================================== */
 
-@media(max-width:1000px){
+@media (max-width: 1000px) {
 
-    .jobs-grid{
-        grid-template-columns:repeat(2,1fr);
+    .jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }
 
-@media(max-width:700px){
 
-    .jobs-grid{
-        grid-template-columns:1fr;
+@media (max-width: 768px) {
+
+    .jobs-search {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .jobs-header h1{
-        font-size:2rem;
+    .jobs-search .search-box,
+    .jobs-search .primary-btn {
+        width: 100%;
     }
 
-    .jobs-card-header{
-        flex-direction:column;
+}
+
+
+@media (max-width: 700px) {
+
+    .jobs-grid {
+        grid-template-columns: 1fr;
     }
 
-    .job-badge{
-        align-self:flex-start;
+    .jobs-header h1 {
+        font-size: 2rem;
     }
 
-    .jobs-search{
-        flex-direction:column;
+    .jobs-card-header {
+        flex-direction: column;
+        gap: 15px;
     }
 
-    .jobs-search .search-box{
-        width:100%;
+    .job-badge {
+        align-self: flex-start;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .job-card {
+        padding: 20px;
+    }
+
+    .job-card-actions {
+        flex-direction: column;
+    }
+
+    .job-card-actions button {
+        width: 100%;
     }
 
 }

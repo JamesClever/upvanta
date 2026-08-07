@@ -3,23 +3,30 @@ Scores how well a user's resume matches a job.
 """
 
 
-def resume_match_score(job, user=None):
+def resume_score(job, user=None):
 
     if not user:
-        return 0
+        return 0, "No resume information"
+
 
     score = 0
+
 
     job_text = (
         f"{job.get('title', '')} "
         f"{job.get('description', '')}"
     ).lower()
 
+
     # -------------------------
     # Skills
     # -------------------------
 
-    skills = getattr(user, "skills", "")
+    skills = getattr(
+        user,
+        "skills",
+        ""
+    )
 
     if skills:
 
@@ -29,6 +36,7 @@ def resume_match_score(job, user=None):
 
             if skill and skill in job_text:
                 score += 8
+
 
     # -------------------------
     # Preferred Location
@@ -40,12 +48,15 @@ def resume_match_score(job, user=None):
         ""
     ).lower()
 
+
     location = (
         job.get("location") or ""
     ).lower()
 
+
     if preferred and preferred in location:
         score += 15
+
 
     # -------------------------
     # Remote Preference
@@ -57,6 +68,7 @@ def resume_match_score(job, user=None):
         False
     )
 
+
     if wants_remote:
 
         if "remote" in location:
@@ -65,4 +77,7 @@ def resume_match_score(job, user=None):
         if "remote" in job_text:
             score += 20
 
-    return score
+
+    normalized = min(score / 20, 1.0)
+
+    return normalized, "Resume compatibility"

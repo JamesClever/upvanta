@@ -5,10 +5,10 @@
 @import url("layout.css");
 @import url("sidebar.css");
 @import url("header.css");
-@import url("buttons.css");
-@import url("cards.css");
-@import url("forms.css");
-@import url("tables.css");
+@import url("button.css");
+@import url("card.css");
+@import url("form.css");
+@import url("table.css");
 
 :root{
     --primary:#2563EB;

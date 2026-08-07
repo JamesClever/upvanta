@@ -1,4 +1,4 @@
-from app.models.resume.resume import Resume
+
 
 
 def review_resume(resume):

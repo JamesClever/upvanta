@@ -3,9 +3,11 @@ from datetime import datetime
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 
-from app.services.career_progress_service import (
+from app.services.career import (
     calculate_career_progress
 )
+
+
 from app.services.dashboard_service import (
     dashboard_data
 )

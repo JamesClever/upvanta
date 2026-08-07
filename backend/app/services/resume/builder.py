@@ -1,4 +1,3 @@
-
 from app.extensions import db
 from app.models.resume.resume import Resume
 
@@ -27,9 +26,6 @@ def calculate_resume_completion(resume):
     return round(completed / len(fields) * 100)
 
 
-
-
-
 def sync_resume_from_profile(user):
     """
     Synchronize profile information into the user's resume.
@@ -50,29 +46,18 @@ def sync_resume_from_profile(user):
     if resume is None:
 
         resume = Resume(
-
             user_id=user.id,
-
             full_name=user.full_name or "",
-
             email=user.email or "",
-
             phone="",
-
             location=user.location or "",
-
             education=user.education or "",
-
             experience=user.experience or "",
-
             skills=user.skills or "",
-
             summary=""
-
         )
 
         db.session.add(resume)
-
         db.session.commit()
 
         return resume

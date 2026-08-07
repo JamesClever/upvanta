@@ -1,9 +1,9 @@
-from .keywords import KEYWORDS
+from ..keywords import KEYWORDS
 
 
-def semantic_bonus(job, query):
+def semantic_score(job, query):
     """
-    Reward jobs that match related technologies.
+    Semantic similarity score.
     """
 
     query = query.lower()
@@ -13,6 +13,7 @@ def semantic_bonus(job, query):
         [query]
     )
 
+
     text = " ".join([
 
         job.get("title", ""),
@@ -21,11 +22,17 @@ def semantic_bonus(job, query):
 
     ]).lower()
 
+
     score = 0
+
 
     for word in related:
 
         if word.lower() in text:
             score += 5
 
-    return score
+
+    normalized = min(score / 20, 1.0)
+
+
+    return normalized, "Semantic relevance"
